@@ -139,7 +139,7 @@ export default function BookingConfirmation() {
     : ""
 
   return (
-    <div className="min-h-screen bg-muted/30 pb-20">
+    <div className="min-h-screen bg-background pb-20 pt-10">
       <div className="max-w-lg mx-auto px-4 py-6">
         
         {/* Header */}

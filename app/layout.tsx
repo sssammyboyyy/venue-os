@@ -1,13 +1,15 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google" // Import Playfair
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { venueConfig } from "@/lib/venue-config"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" })
 
 export const metadata: Metadata = {
-  title: "The Mulligan | Premier Golf Simulator",
-  description: "Book 4-ball games, coaching, and practice sessions at The Mulligan. Top-tier golf simulation technology.",
+  title: `${venueConfig.name} | Book Online`,
+  description: venueConfig.description,
 }
 
 export default function RootLayout({
@@ -16,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className, "min-h-screen bg-background antialiased")}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(inter.variable, playfair.variable, "min-h-screen bg-background font-sans antialiased")}>
         {children}
       </body>
     </html>

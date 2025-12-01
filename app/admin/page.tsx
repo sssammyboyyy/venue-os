@@ -1,266 +1,149 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { createClient } from "@supabase/supabase-js"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { TrendingUp, Users, DollarSign, Activity, Calendar, ArrowUpRight } from "lucide-react"
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { venueConfig } from "@/lib/venue-config" // Import Config
 
-// Initialize Supabase Client for the Browser
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
-
-// Duration options for the dropdown
-const DURATION_OPTIONS = [1, 1.5, 2, 2.5, 3, 3.5, 4]
+// FAKE DATA
+const data = [
+  { name: "Mon", total: 1200 },
+  { name: "Tue", total: 1850 },
+  { name: "Wed", total: 1600 },
+  { name: "Thu", total: 2100 },
+  { name: "Fri", total: 2850 },
+  { name: "Sat", total: 3200 },
+  { name: "Sun", total: 2600 },
+]
 
 export default function AdminDashboard() {
-  // --- STATE ---
-  const [pin, setPin] = useState("")
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  
-  // Dashboard Data
-  const [bookings, setBookings] = useState<any[]>([])
-  
-  // Walk-in Form State
-  const [walkInName, setWalkInName] = useState("")
-  const [walkInTime, setWalkInTime] = useState("09:00")
-  const [walkInDate, setWalkInDate] = useState(new Date().toISOString().split('T')[0])
-  const [walkInDuration, setWalkInDuration] = useState(1)
-  const [walkInPlayers, setWalkInPlayers] = useState(1)
-
-  // --- ACTIONS ---
-
-  // 1. PIN LOGIN
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (pin === "1234") {
-      setIsAuthenticated(true)
-      fetchBookings()
-    } else {
-      setError("Incorrect PIN")
-    }
-  }
-
-  // 2. FETCH BOOKINGS
-  const fetchBookings = async () => {
-    setLoading(true)
-    const { data, error } = await supabase
-      .from("bookings")
-      .select("*")
-      .eq("booking_date", walkInDate)
-      .neq("status", "cancelled")
-      .order("start_time", { ascending: true })
-    
-    if (data) setBookings(data)
-    if (error) console.error("Fetch Error:", error)
-    setLoading(false)
-  }
-
-  // 3. CREATE WALK-IN (FIXED: Uses Admin Route + Instant Confirmation)
-  const handleWalkIn = async () => {
-    if (!walkInName || !walkInTime) return alert("Please fill in details")
-    
-    setLoading(true)
-    try {
-      // CHANGED: Use the dedicated Admin/Walk-in Endpoint
-      const res = await fetch("/api/bookings/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          booking_date: walkInDate,
-          start_time: walkInTime,
-          duration_hours: walkInDuration,
-          players: walkInPlayers, 
-          session_type: "quickplay", 
-          guest_name: walkInName,
-          guest_email: "walkin@themulligan.org", // Dummy email for record
-          total_price: 0, // Walk-ins pay at the counter, tracking value optional here
-          payment_status: "completed" // <--- FORCE CONFIRMED STATUS
-        }),
-      })
-
-      const result = await res.json()
-      
-      if (!res.ok) {
-        throw new Error(result.error || "Failed to create booking")
-      }
-
-      // CHANGED: Show clean message with Assigned Bay
-      alert(`✅ Walk-in Confirmed!\n\n👉 ASSIGN TO: Simulator ${result.assigned_bay}`)
-      
-      // Reset Form
-      setWalkInName("")
-      fetchBookings() 
-
-    } catch (err: any) {
-      console.error(err)
-      alert(`❌ Error: ${err.message}`)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Auto-refresh when date changes
-  useEffect(() => {
-    if (isAuthenticated) fetchBookings()
-  }, [walkInDate, isAuthenticated])
-
-  // --- RENDER ---
-
-  if (!isAuthenticated) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-gray-100">
-        <form onSubmit={handleLogin} className="w-full max-w-sm rounded bg-white p-8 shadow">
-          <h2 className="mb-6 text-center text-2xl font-bold text-green-900">Admin Access</h2>
-          {error && <p className="mb-4 text-center text-sm text-red-600">{error}</p>}
-          <input
-            type="password"
-            placeholder="Enter PIN"
-            className="mb-4 w-full rounded border p-2"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-            autoFocus
-          />
-          <button type="submit" className="w-full rounded bg-green-900 py-2 text-white hover:bg-green-800">
-            Unlock Dashboard
-          </button>
-        </form>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-gray-900">Store Dashboard</h1>
-          <button onClick={() => setIsAuthenticated(false)} className="text-sm text-red-600 underline">Logout</button>
+    <div className="min-h-screen bg-transparent p-6 md:p-8">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-white tracking-tight font-serif">Command Center</h1>
+          <p className="text-gray-400 text-sm">Real-time Revenue Operations</p>
         </div>
-
-        {/* --- CONTROLS --- */}
-        <div className="mb-8 grid gap-6 md:grid-cols-2">
-          
-          {/* 1. Add Walk-in */}
-          <div className="rounded-lg bg-white p-6 shadow border border-green-100">
-            <h3 className="mb-4 text-lg font-semibold text-green-800">⛳ Add Walk-in Booking</h3>
-            <div className="space-y-3">
-              <input 
-                className="w-full rounded border p-2" 
-                placeholder="Customer Name" 
-                value={walkInName}
-                onChange={e => setWalkInName(e.target.value)}
-              />
-              <div className="flex gap-2">
-                <input 
-                  type="date" 
-                  className="w-1/2 rounded border p-2" 
-                  value={walkInDate}
-                  onChange={e => setWalkInDate(e.target.value)}
-                />
-                <input 
-                  type="time" 
-                  className="w-1/2 rounded border p-2" 
-                  value={walkInTime}
-                  onChange={e => setWalkInTime(e.target.value)}
-                />
-              </div>
-              <div className="flex gap-2">
-                <select 
-                    className="w-1/2 rounded border p-2"
-                    value={walkInDuration}
-                    onChange={(e) => setWalkInDuration(Number(e.target.value))}
-                  >
-                    {DURATION_OPTIONS.map(opt => (
-                      <option key={opt} value={opt}>{opt} Hours</option>
-                    ))}
-                </select>
-                <select 
-                    className="w-1/2 rounded border p-2"
-                    value={walkInPlayers}
-                    onChange={(e) => setWalkInPlayers(Number(e.target.value))}
-                  >
-                    {[1,2,3,4,5,6,7,8].map(n => (
-                      <option key={n} value={n}>{n} Players</option>
-                    ))}
-                </select>
-              </div>
-
-              <button 
-                onClick={handleWalkIn}
-                disabled={loading}
-                className="w-full rounded bg-green-700 py-3 font-bold text-white hover:bg-green-800 disabled:opacity-50 transition-colors"
-              >
-                {loading ? "Processing..." : "Confirm & Pay In-Store"}
-              </button>
+        <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-900/20 border border-green-900/50">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-xs font-mono text-green-500">SYSTEM ONLINE</span>
             </div>
-          </div>
-
-          {/* 2. Stats / Filter */}
-          <div className="rounded-lg bg-white p-6 shadow">
-            <h3 className="mb-4 text-lg font-semibold text-gray-800">📅 Daily View</h3>
-             <input 
-                  type="date" 
-                  className="mb-4 w-full rounded border p-2 text-lg" 
-                  value={walkInDate}
-                  onChange={e => setWalkInDate(e.target.value)}
-              />
-            <div className="text-center py-4 bg-gray-50 rounded">
-              <p className="text-gray-500">Active Bookings Today</p>
-              <p className="text-5xl font-bold text-green-700">{bookings.length}</p>
-            </div>
-          </div>
         </div>
+      </div>
 
-        {/* --- BOOKINGS TABLE --- */}
-        <div className="overflow-hidden rounded-lg bg-white shadow">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Time</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Bay</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Customer</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Duration</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {bookings.length === 0 ? (
-                <tr><td colSpan={5} className="p-6 text-center text-gray-500">No bookings found for this date.</td></tr>
-              ) : (
-                bookings.map((b) => (
-                  <tr key={b.id}>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm font-bold text-gray-900">
-                      {b.start_time.slice(0,5)}
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                      <span className="font-semibold text-gray-700">Simulator {b.simulator_id}</span>
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
-                      {b.guest_name}
-                      <div className="text-xs text-gray-400">{b.session_type}</div>
-                    </td>
-                     <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                      {b.duration_hours} hrs
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      <span className={`inline-flex rounded-full px-2 py-1 text-xs font-bold leading-5 ${
-                        b.status === 'confirmed' ? 'bg-green-100 text-green-800' : 
-                        b.status === 'pending' ? 'bg-orange-100 text-orange-800' : 'bg-red-100 text-red-800'
-                      }`}>
-                        {b.status.toUpperCase()}
-                      </span>
-                      {b.payment_status === 'paid_instore' && (
-                        <div className="text-xs text-green-600 mt-1 font-medium">In-Store Payment</div>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+      {/* KPI GRID */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        {[
+            // Dynamically using venueConfig.currency here
+            { label: "Total Revenue", val: `${venueConfig.currency} 18,420`, icon: DollarSign, trend: "+14%", color: "text-primary" },
+            { label: "Slot Utilization", val: "87.4%", icon: Activity, trend: "28 slots left", color: "text-blue-400" },
+            { label: "Active Bookings", val: "142", icon: Calendar, trend: "+32 this week", color: "text-purple-400" },
+            { label: "LTV / Customer", val: `${venueConfig.currency} 345`, icon: Users, trend: "Lifetime Value", color: "text-orange-400" }
+        ].map((item, i) => (
+            <Card key={i} className="border-white/5 bg-white/5 backdrop-blur-md">
+                <CardContent className="p-6">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">{item.label}</p>
+                            <h3 className="text-2xl font-bold text-white mt-2 font-mono">{item.val}</h3>
+                        </div>
+                        <div className={`p-2 rounded-lg bg-white/5 ${item.color}`}>
+                            <item.icon className="w-5 h-5" />
+                        </div>
+                    </div>
+                    <div className="mt-4 flex items-center text-xs text-gray-400">
+                        {item.label === "Total Revenue" && <ArrowUpRight className="w-3 h-3 mr-1 text-green-500" />}
+                        <span className={item.label === "Total Revenue" ? "text-green-500" : ""}>{item.trend}</span>
+                    </div>
+                </CardContent>
+            </Card>
+        ))}
+      </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* REVENUE CHART */}
+        <Card className="lg:col-span-2 border-white/5 bg-white/5 backdrop-blur-md">
+            <CardHeader>
+                <CardTitle className="text-sm font-medium text-gray-400 uppercase tracking-wider">Weekly Performance</CardTitle>
+            </CardHeader>
+            <CardContent className="pl-0">
+                <div className="h-[300px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={data}>
+                            <defs>
+                                <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                                </linearGradient>
+                            </defs>
+                            <XAxis 
+                                dataKey="name" 
+                                stroke="#525252" 
+                                fontSize={12} 
+                                tickLine={false} 
+                                axisLine={false} 
+                            />
+                            <YAxis 
+                                stroke="#525252" 
+                                fontSize={12} 
+                                tickLine={false} 
+                                axisLine={false} 
+                                tickFormatter={(value) => `${venueConfig.currency}${value/1000}k`} 
+                            />
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: '#171717', border: '1px solid #333', borderRadius: '8px' }}
+                                itemStyle={{ color: '#fff' }}
+                            />
+                            <Area 
+                                type="monotone" 
+                                dataKey="total" 
+                                stroke="#10b981" 
+                                strokeWidth={2} 
+                                fillOpacity={1} 
+                                fill="url(#colorTotal)" 
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </CardContent>
+        </Card>
+
+        {/* LIVE FEED */}
+        <Card className="border-white/5 bg-white/5 backdrop-blur-md">
+            <CardHeader>
+                <CardTitle className="text-sm font-medium text-gray-400 uppercase tracking-wider">Real-Time Feed</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-6">
+                    {[
+                        { text: "New Booking: 4-Ball", sub: `${venueConfig.currency}50 Deposit Paid`, time: "2m ago", color: "bg-green-500" },
+                        { text: "Reminder Sent", sub: "John Doe (Tomorrow 09:00)", time: "5m ago", color: "bg-blue-500" },
+                        { text: "Rainy Day Protocol", sub: "Auto-Filled Slot: 16:00", time: "12m ago", color: "bg-purple-500" },
+                        { text: "Payment Verified", sub: "Sarah Smith", time: "15m ago", color: "bg-green-500" },
+                        { text: "New Review", sub: "5 Stars on Google", time: "32m ago", color: "bg-yellow-500" },
+                    ].map((item, i) => (
+                        <div key={i} className="flex gap-4">
+                            <div className="relative mt-1">
+                                <div className={`h-2 w-2 rounded-full ${item.color} shadow-[0_0_10px_currentColor]`} />
+                                <div className="absolute top-3 left-1 w-[1px] h-8 bg-white/10" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium text-white">{item.text}</p>
+                                <p className="text-xs text-gray-500">{item.sub}</p>
+                            </div>
+                            <span className="ml-auto text-xs text-gray-600 font-mono">{item.time}</span>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
       </div>
     </div>
   )
