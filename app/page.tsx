@@ -248,7 +248,7 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer className="py-12 border-t border-white/10 text-center text-gray-500 text-sm">
-        <p>© 2024 {venueConfig.name}. All rights reserved.</p>
+        <p>© 2026 {venueConfig.name}. All rights reserved.</p>
         <p className="mt-2">Powered by Venue OS</p>
       </footer>
     </div>
