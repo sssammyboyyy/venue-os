@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ArrowRight, CheckCircle2, Terminal, Mic, 
-  ChevronRight, Loader2, Building, Users, Server
+  ArrowRight, CheckCircle2, Terminal, 
+  Loader2, Code2, PenTool, Hammer,
+  MapPin, ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
+import { createBrowserClient } from '@supabase/ssr';
 
 // --- VISUALS ---
 const MouseSpotlight = () => {
@@ -52,25 +54,56 @@ export default function PartnerPage() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     
-    // 1. SEND TO N8N WEBHOOK
-    // Replace this URL with your actual n8n production webhook
-    const N8N_WEBHOOK_URL = "https://your-n8n-instance.com/webhook/partner-application";
+    // --- 1. SUPABASE CONNECTION ---
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    // --- 2. N8N WEBHOOK (Replace with your actual URL) ---
+    const N8N_WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "YOUR_N8N_WEBHOOK_URL_HERE";
     
     try {
-        // Simulate API call for demo purposes if no URL is set
-        // await fetch(N8N_WEBHOOK_URL, {
-        //     method: 'POST',
-        //     body: JSON.stringify({ ...formData, timestamp: new Date().toISOString() })
-        // });
+        // A. Save to Database (CRM)
+        const { error: dbError } = await supabase
+            .from('leads')
+            .insert({
+                full_name: formData.name,
+                email: formData.email,
+                venue_name: formData.venueName,
+                hardware_stack: formData.hardware,
+                bay_count: formData.bays,
+                pain_point: formData.currentPain,
+                status: 'new'
+            });
+
+        if (dbError) {
+            console.error("DB Error:", dbError);
+            // We continue anyway to try triggering the email
+        }
+
+        // B. Trigger n8n Automation (Email Sequence)
+        // We use no-cors mode if testing locally, but standard fetch for prod
+        await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                ...formData, 
+                timestamp: new Date().toISOString() 
+            })
+        }).catch(err => console.error("n8n Error:", err));
         
-        // Fake delay for "Processing" vibe
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Fake delay for "Processing" vibe if API is too fast
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
         setIsSubmitting(false);
         setIsComplete(true);
+
     } catch (error) {
-        console.error("Submission error", error);
+        console.error("Submission critical error", error);
         setIsSubmitting(false);
+        // Fallback to success state so user doesn't get stuck
+        setIsComplete(true); 
     }
   };
 
@@ -302,7 +335,7 @@ export default function PartnerPage() {
                         <p className="text-zinc-400 max-w-md mx-auto leading-relaxed mb-8">
                             The Venue Engine team has received your configuration. We are analyzing your hardware stack against our yield models.
                             <br/><br/>
-                            Expect a protocol briefing in your inbox within 15 minutes.
+                            Expect a protocol briefing in your inbox shortly.
                         </p>
                         <Link href="/" className="text-emerald-500 font-mono text-xs uppercase tracking-widest hover:text-emerald-400 border-b border-emerald-500/30 pb-1">
                             Return to Command Center
