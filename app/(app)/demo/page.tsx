@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Activity, Users, DollarSign, Calendar, Settings, Bell, 
   Zap, Clock, Terminal, Smartphone, ChevronRight, Mic, 
-  PhoneIncoming, ShieldCheck, Wifi, MessageSquarePlus // <--- Added this fix
+  PhoneIncoming, ShieldCheck, Wifi, MessageSquarePlus
 } from 'lucide-react';
 
 // --- TYPES & MOCK DATA ---
@@ -37,10 +37,9 @@ const BOOT_SEQUENCE = [
 
 // --- COMPONENTS ---
 
-// 1. The Boot Screen
 const BootScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [lines, setLines] = useState<string[]>([]);
-  
+   
   useEffect(() => {
     let delay = 0;
     BOOT_SEQUENCE.forEach((line, index) => {
@@ -68,7 +67,6 @@ const BootScreen = ({ onComplete }: { onComplete: () => void }) => {
   );
 };
 
-// 2. Animated Number
 const AnimatedNumber = ({ value }: { value: number }) => {
   const [displayValue, setDisplayValue] = useState(value);
 
@@ -96,7 +94,6 @@ const AnimatedNumber = ({ value }: { value: number }) => {
   return <>{displayValue.toLocaleString()}</>;
 };
 
-// 3. Status Badge
 const StatusBadge = ({ status }: { status: BayStatus }) => {
   const styles: any = {
     active: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
@@ -112,7 +109,6 @@ const StatusBadge = ({ status }: { status: BayStatus }) => {
   );
 };
 
-// 4. Bay Card
 const BayCard = ({ bay }: { bay: any }) => (
   <div className="group relative bg-[#09090b] border border-white/5 hover:border-emerald-500/30 transition-all duration-300 p-5 rounded-lg overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -149,7 +145,6 @@ const BayCard = ({ bay }: { bay: any }) => (
   </div>
 );
 
-// 5. Log Stream
 const LogStream = ({ logs }: { logs: Log[] }) => {
    const scrollRef = useRef<HTMLDivElement>(null);
    useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = 0; }, [logs]);
@@ -165,7 +160,7 @@ const LogStream = ({ logs }: { logs: Log[] }) => {
                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
          </div>
-         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 font-mono text-[10px]">
+         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3 font-mono text-[10px] h-[300px]">
             {logs.map((log) => (
                <div key={log.id} className="flex gap-3 animate-[fadeIn_0.3s_ease-out]">
                   <span className="text-zinc-600 shrink-0">{log.time}</span>
@@ -187,10 +182,8 @@ const LogStream = ({ logs }: { logs: Log[] }) => {
    );
 };
 
-// 6. Voice Node (FIXED STYLING)
 const VoiceNode = ({ active }: { active: boolean }) => (
   <div className="bg-[#09090b] border border-white/5 p-4 rounded-xl flex items-center justify-between overflow-hidden relative group w-full mb-6 z-0">
-     {/* Active Pulse Background */}
      {active && (
         <div className="absolute inset-0 bg-emerald-500/10 z-0 pointer-events-none">
            <div className="absolute inset-0 animate-pulse bg-emerald-500/5"></div>
@@ -209,7 +202,6 @@ const VoiceNode = ({ active }: { active: boolean }) => (
         </div>
      </div>
 
-     {/* Visualizer */}
      <div className="flex gap-1 items-end h-6 relative z-10">
         {[1,2,3,4,5].map((i) => (
            <div 
@@ -225,7 +217,6 @@ const VoiceNode = ({ active }: { active: boolean }) => (
   </div>
 );
 
-// --- MAIN PAGE ---
 export default function DemoPage() {
   const [booted, setBooted] = useState(false);
   const [bays, setBays] = useState<any[]>(INITIAL_BAYS);
@@ -236,24 +227,20 @@ export default function DemoPage() {
      const now = new Date();
      const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
      
-     // 1. Voice AI Answers Call
      setLogs(prev => [{ id: Math.random().toString(), time, source: 'VOICE_AI', message: 'Incoming Call: +1 (555) 012-3499', type: 'info' }, ...prev]);
 
-     // 2. Negotiating
      setTimeout(() => {
-        setLogs(prev => [{ id: Math.random().toString(), time, source: 'VOICE_AI', message: 'Intent Detected: Booking (2 Players, 8PM)', type: 'info' }, ...prev]);
+       setLogs(prev => [{ id: Math.random().toString(), time, source: 'VOICE_AI', message: 'Intent Detected: Booking (2 Players, 8PM)', type: 'info' }, ...prev]);
      }, 1200);
 
-     // 3. Payment Link
      setTimeout(() => {
-        setLogs(prev => [{ id: Math.random().toString(), time, source: 'n8n', message: 'Stripe Payment Link sent via SMS', type: 'success' }, ...prev]);
+       setLogs(prev => [{ id: Math.random().toString(), time, source: 'n8n', message: 'Stripe Payment Link sent via SMS', type: 'success' }, ...prev]);
      }, 2500);
 
-     // 4. Close & Update
      setTimeout(() => {
-        setLogs(prev => [{ id: Math.random().toString(), time, source: 'STRIPE', message: 'Payment captured: $85.00', type: 'success' }, ...prev]);
-        setRevenue(prev => prev + 85);
-        setBays(prev => prev.map(bay => bay.id === 3 ? { ...bay, status: 'reserved', currentSession: { customer: 'Voice AI Capture', timeLeft: 'Starts in 10m', value: 85 } } : bay));
+       setLogs(prev => [{ id: Math.random().toString(), time, source: 'STRIPE', message: 'Payment captured: $85.00', type: 'success' }, ...prev]);
+       setRevenue(prev => prev + 85);
+       setBays(prev => prev.map(bay => bay.id === 3 ? { ...bay, status: 'reserved', currentSession: { customer: 'Voice AI Capture', timeLeft: 'Starts in 10m', value: 85 } } : bay));
      }, 4000);
   };
 
@@ -269,21 +256,15 @@ export default function DemoPage() {
             {[Activity, Calendar, Users, DollarSign].map((Icon, i) => (
                 <button key={i} className={`p-2 rounded-lg transition-all ${i === 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-zinc-600 hover:text-white'}`}><Icon className="w-5 h-5" /></button>
             ))}
-
-            {/* NEW: Concierge / Request Feature Button */}
             <div className="my-4 w-8 h-[1px] bg-white/10"></div>
             <button className="p-2 text-amber-500 bg-amber-500/10 rounded-lg group relative">
                 <MessageSquarePlus className="w-5 h-5" />
-                <span className="absolute left-14 top-1/2 -translate-y-1/2 bg-black border border-white/10 px-2 py-1 text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap rounded">
-                   Request Feature
-                </span>
             </button>
          </div>
          <div className="mt-auto"><button className="p-2 text-zinc-600 hover:text-white"><Settings className="w-5 h-5" /></button></div>
       </div>
 
       <div className="pl-16 relative">
-         {/* HEADER - Increased Z-Index to prevent overlap */}
          <header className="h-16 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl flex items-center justify-between px-8 sticky top-0 z-50">
             <div>
                <h1 className="text-lg font-serif text-white tracking-tight">Command Center</h1>
@@ -294,77 +275,46 @@ export default function DemoPage() {
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span className="text-xs font-mono text-zinc-400">Live Feed</span>
                </div>
-               <div className="h-8 w-[1px] bg-white/10"></div>
-               <div className="w-8 h-8 bg-zinc-800 rounded-full border border-white/10 flex items-center justify-center"><span className="font-mono text-xs">SR</span></div>
             </div>
          </header>
 
          <main className="p-8 max-w-[1600px] mx-auto z-0 relative">
-            
-            {/* KPI ROW */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                <div className="bg-[#09090b] p-6 rounded-xl border border-white/5">
-                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Gross Revenue (24h)</span><DollarSign className="w-4 h-4 text-emerald-500" /></div>
+                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Gross Revenue</span><DollarSign className="w-4 h-4 text-emerald-500" /></div>
                   <div className="text-3xl font-serif text-white">$<AnimatedNumber value={revenue} /></div>
                   <div className="mt-2 text-[10px] text-emerald-500 font-mono flex items-center gap-1"><Activity className="w-3 h-3" /> +12% vs last Saturday</div>
                </div>
                <div className="bg-[#09090b] p-6 rounded-xl border border-white/5">
-                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Occupancy Rate</span><Users className="w-4 h-4 text-blue-500" /></div>
+                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Occupancy</span><Users className="w-4 h-4 text-blue-500" /></div>
                   <div className="text-3xl font-serif text-white">82%</div>
-                  <div className="mt-2 text-[10px] text-zinc-400 font-mono">4 Bays Active • 2 Reserved</div>
                </div>
                <div className="bg-[#09090b] p-6 rounded-xl border border-white/5">
-                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Ghost Revenue</span><Zap className="w-4 h-4 text-amber-500" /></div>
+                  <div className="flex justify-between items-start mb-2"><span className="text-[10px] font-mono uppercase text-zinc-500 tracking-wider">Ghost Rev</span><Zap className="w-4 h-4 text-amber-500" /></div>
                   <div className="text-3xl font-serif text-white">$420</div>
-                  <div className="mt-2 text-[10px] text-amber-500 font-mono">Recovered via Flash-Fill</div>
                </div>
-               <div className="bg-gradient-to-br from-emerald-900/20 to-black p-6 rounded-xl border border-emerald-500/20 flex flex-col justify-center items-start relative overflow-hidden group hover:border-emerald-500/40 transition-all cursor-pointer">
+               <div className="bg-gradient-to-br from-emerald-900/20 to-black p-6 rounded-xl border border-emerald-500/20 flex flex-col justify-center items-start relative overflow-hidden group hover:border-emerald-500/40 transition-all cursor-pointer" onClick={simulateFlashFill}>
                   <div className="absolute top-0 right-0 p-10 bg-emerald-500/10 blur-[50px] rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
                   <h3 className="text-sm font-bold text-white mb-1 relative z-10">Simulate Chaos</h3>
                   <p className="text-[10px] text-zinc-400 mb-4 relative z-10">Trigger a "Voice Agent" event.</p>
-                  <button onClick={simulateFlashFill} className="w-full bg-white text-black hover:bg-zinc-200 text-xs font-bold py-2 px-4 rounded transition-colors flex items-center justify-center gap-2 relative z-10">
+                  <button className="w-full bg-white text-black hover:bg-zinc-200 text-xs font-bold py-2 px-4 rounded transition-colors flex items-center justify-center gap-2 relative z-10">
                      <Zap className="w-3 h-3 text-emerald-600 fill-emerald-600" /> Trigger Event
                   </button>
                </div>
             </div>
 
-            {/* MAIN DASHBOARD GRID */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[600px]">
-               {/* LEFT: VENUE VISUALIZER */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                <div className="lg:col-span-8 flex flex-col">
-                  
-                  {/* VOICE NODE - VISUALIZER */}
                   <VoiceNode active={logs.length > 0 && logs[0].source === 'VOICE_AI'} />
-
                   <div className="flex justify-between items-center mb-6">
                      <h2 className="text-lg font-serif text-white">Venue Status</h2>
-                     <div className="flex gap-2">
-                        <span className="flex items-center gap-1 text-[10px] text-zinc-500 uppercase"><div className="w-2 h-2 bg-emerald-500 rounded-full"></div> Active</span>
-                        <span className="flex items-center gap-1 text-[10px] text-zinc-500 uppercase"><div className="w-2 h-2 bg-zinc-700 rounded-full"></div> Idle</span>
-                     </div>
                   </div>
-                  
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                      {bays.map(bay => <BayCard key={bay.id} bay={bay} />)}
                   </div>
-                  
-                  <div className="bg-[#09090b] border border-white/5 rounded-lg p-4 mt-6">
-                     <div className="flex items-center justify-between text-xs text-zinc-400 font-mono">
-                        <span className="flex items-center gap-2"><ShieldCheck className="w-3 h-3 text-emerald-500" /> System Encrypted</span>
-                        <span className="flex items-center gap-2"><Wifi className="w-3 h-3 text-emerald-500" /> Latency: 24ms</span>
-                     </div>
-                  </div>
                </div>
-
-               {/* RIGHT: INTELLIGENCE FEED */}
                <div className="lg:col-span-4 bg-[#050505] border border-white/10 rounded-xl overflow-hidden flex flex-col">
                   <LogStream logs={logs} />
-                  <div className="p-3 border-t border-white/5 bg-[#09090b]">
-                     <div className="flex items-center gap-2 bg-black border border-white/10 rounded px-3 py-2">
-                        <ChevronRight className="w-3 h-3 text-zinc-500" />
-                        <input type="text" disabled placeholder="Waiting for n8n webhook..." className="bg-transparent border-none outline-none text-xs text-zinc-500 w-full font-mono cursor-not-allowed" />
-                     </div>
-                  </div>
                </div>
             </div>
          </main>
