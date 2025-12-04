@@ -849,11 +849,12 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-zinc-100 text-black flex items-center justify-center font-serif font-bold rounded-sm">V</div>
               <span className="font-serif text-lg tracking-tight text-white">Venue Engine</span>
            </div>
-           <Link href="/demo" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Partner Up?
-              <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-           </Link>
+           {/* NEW: "Partner Access" linking to /partner */}
+<Link href="/partner" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
+  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+  Partner Access
+  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+</Link>
         </div>
       </nav>
 
@@ -962,18 +963,24 @@ export default function LandingPage() {
              <p className="text-base md:text-lg text-zinc-400 mb-12 max-w-xl mx-auto font-light leading-relaxed">
                 If Venue Engine does not recover its own monthly cost in captured "Ghost Revenue" within 30 days, I will refund your implementation fee in full.
              </p>
-             <div className="flex flex-col items-center gap-6">
-                <Link href="/demo" className="h-14 md:h-16 px-8 md:px-12 bg-white text-black hover:bg-zinc-200 font-mono text-xs md:text-sm uppercase tracking-widest font-bold transition-all flex items-center gap-3 rounded-sm shadow-[0_0_50px_rgba(255,255,255,0.2)]">
-                   Initiate Revenue Audit
-                   <ArrowRight className="w-4 h-4" />
-                </Link>
-                <div className="flex items-center gap-4 opacity-50">
-                   <Globe className="w-4 h-4 text-zinc-600" />
-                   <Server className="w-4 h-4 text-zinc-600" />
-                   <Cpu className="w-4 h-4 text-zinc-600" />
-                   <Lock className="w-4 h-4 text-zinc-600" />
-                </div>
-             </div>
+             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
+    {/* OLD: "Deploy System" linking to /demo */}
+    {/* NEW: "Initialize Audit" linking to /partner */}
+    <Link href="/partner" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
+       <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+       <span className="relative z-10 flex items-center gap-2">
+          Initialize Audit 
+          <ArrowRight className="w-4 h-4" />
+       </span>
+    </Link>
+    
+    {/* OLD: "Simulate Revenue" linking to nothing */}
+    {/* NEW: "View Live Demo" linking to /demo (The Dashboard Simulation) */}
+    <Link href="/demo" className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
+       <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> 
+       View Live Demo
+    </Link>
+</div>
          </div>
       </section>
 
