@@ -354,7 +354,7 @@ export default function PartnerPage() {
                         <h2 className="text-4xl font-serif text-white mb-4">Application Received.</h2>
                         <p className="text-zinc-400 max-w-md mx-auto leading-relaxed mb-8">
                             The system is analyzing your configuration. <br/>
-                            You will receive a protocol briefing from <strong>Sam Rencken</strong> in your inbox shortly.
+                            You will receive a protocol briefing from <strong>our architecture team</strong> in your inbox shortly.
                         </p>
                         <Link href="/" className="text-emerald-500 font-mono text-xs uppercase tracking-widest hover:text-emerald-400 border-b border-emerald-500/30 pb-1">
                             Return to Command Center

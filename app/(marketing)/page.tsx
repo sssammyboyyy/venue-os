@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { 
   ArrowRight, Zap, Shield, CheckCircle2, XCircle, Terminal, 
   BarChart3, Mic, Server, Lock, Globe, Cpu, ChevronRight, Play,
   Code2, PenTool, Hammer, MapPin, Database, Key, Wifi, CreditCard,
-  FileText, UserCheck, TrendingUp, Quote, Network, Activity 
+  FileText, UserCheck, TrendingUp, Quote, Network, Activity, Phone 
 } from 'lucide-react';
 
 // --- SEO & SCHEMA ---
@@ -33,8 +33,6 @@ const jsonLd = {
 
 // --- VISUAL COMPONENTS ---
 
-// --- VISUAL COMPONENTS ---
-
 const MouseSpotlight = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   useEffect(() => {
@@ -49,8 +47,6 @@ const MouseSpotlight = () => {
     <div 
       className="fixed inset-0 pointer-events-none z-30 transition-opacity duration-500 hidden md:block"
       style={{
-        // INCREASED OPACITY: 0.06 -> 0.15
-        // INCREASED Z-INDEX: z-0 -> z-30 (Sits on top of dark backgrounds)
         background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16,185,129,0.15), transparent 80%)`
       }}
     />
@@ -61,10 +57,10 @@ const CodeTerminal = () => {
   const logs = [
     "Checking Waitlist...",
     "Found 3 VIP Leads...",
-    "Sending Invite (Auto-Fill)...",
-    "Booking Confirmed: $120.00",
-    "Payment Payout: Instant",
-    "Pricing Engine: Optimized"
+    "Voice Agent: Call Initiated...",
+    "Payment: $120.00 Captured (Stripe)",
+    "Hardware: Projectors UNLOCKED",
+    "Revenue_Guard: Active"
   ];
   return (
     <div className="w-full max-w-lg mx-auto bg-[#0A0A0A] border border-white/10 rounded-lg overflow-hidden shadow-2xl font-mono text-[10px] md:text-xs relative group">
@@ -84,7 +80,7 @@ const CodeTerminal = () => {
                className="flex items-center gap-2 md:gap-3 truncate"
              >
                 <span className="text-emerald-500 shrink-0">➜</span>
-                <span className={log.includes("$") ? "text-white font-bold bg-emerald-900/20 px-1 rounded truncate" : "text-zinc-400 truncate"}>
+                <span className={log.includes("Captured") || log.includes("Active") ? "text-white font-bold bg-emerald-900/20 px-1 rounded truncate" : "text-zinc-400 truncate"}>
                   {log}
                 </span>
              </motion.div>
@@ -146,7 +142,6 @@ const OrbitalSystem = () => {
       >
         <div className="bg-[#050505] border border-white/10 p-2 rounded-full shadow-[0_0_20px_rgba(0,0,0,0.8)] hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all cursor-default group">
           {children}
-          {/* Tooltip */}
           <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-zinc-400 font-mono whitespace-nowrap bg-black px-2 py-1 rounded border border-white/10 pointer-events-none">
             Connected
           </div>
@@ -157,7 +152,6 @@ const OrbitalSystem = () => {
 
   return (
     <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] flex items-center justify-center scale-75 md:scale-100">
-      {/* Central Node */}
       <div className="relative z-20 w-24 h-24 bg-gradient-to-br from-emerald-900 to-black rounded-full border border-emerald-500/30 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.2)]">
         <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center border border-white/10">
            <span className="font-serif font-bold text-2xl text-white">V</span>
@@ -165,12 +159,10 @@ const OrbitalSystem = () => {
         <div className="absolute inset-0 border border-emerald-500/20 rounded-full animate-ping opacity-20"></div>
       </div>
 
-      {/* Orbit Rings */}
       <div className="absolute inset-0 border border-white/5 rounded-full" />
       <div className="absolute inset-[15%] border border-white/5 rounded-full" />
       <div className="absolute inset-[30%] border border-white/5 rounded-full" />
 
-      {/* INNER ORBIT */}
       <OrbitIcon radius={100} delay={0} speed={25}>
          <div className="text-xs font-bold text-white px-2">STRIPE</div>
       </OrbitIcon>
@@ -181,7 +173,6 @@ const OrbitalSystem = () => {
          <div className="text-xs font-bold text-white px-2">OPENAI</div>
       </OrbitIcon>
 
-      {/* OUTER ORBIT */}
       <OrbitIcon radius={180} delay={0} speed={40}>
          <div className="text-xs font-bold text-zinc-400 px-2">TRACKMAN</div>
       </OrbitIcon>
@@ -256,13 +247,13 @@ const HeroSection = () => {
           className="flex flex-col items-center gap-8 md:gap-12 w-full"
         >
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
-             <Link href="/demo" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
+             <Link href="/partner" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
                <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-               <span className="relative z-10 flex items-center gap-2">Deploy System <ArrowRight className="w-4 h-4" /></span>
+               <span className="relative z-10 flex items-center gap-2">Initialize Audit <ArrowRight className="w-4 h-4" /></span>
              </Link>
-             <button className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
+             <Link href="/demo" className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
                <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> Watch Demo
-             </button>
+             </Link>
           </div>
 
           <div className="relative w-full max-w-2xl px-2">
@@ -389,10 +380,10 @@ const BenefitMatrix = () => {
     },
     { 
       icon: <Wifi className="w-6 h-6 text-amber-400" />, 
-      title: "Sim Control", 
-      desc: "We cut power to the projector if the booking isn't paid. Ultimate enforcement.", 
-      stat: "Power Automation",
-      status: "Arming..."
+      title: "Sim Kill Switch", 
+      desc: "We physically cut power to the projector if the booking isn't paid. Ultimate enforcement.", 
+      stat: "Hard Relay",
+      status: "Armed"
     },
     { 
       icon: <FileText className="w-6 h-6 text-pink-400" />, 
@@ -463,6 +454,128 @@ const BenefitMatrix = () => {
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- NEW SECTION: BORN IN THE ARENA ---
+const BornInTheArena = () => (
+  <section className="py-24 border-t border-white/5 bg-[#050505] relative overflow-hidden">
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/10 via-black to-black"></div>
+    <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="flex flex-col md:flex-row gap-12 items-center">
+         <div className="w-full md:w-1/2">
+             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-6">
+                 <MapPin className="w-3 h-3" /> Origin Story
+             </div>
+             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+               Born in the Arena. <br/>
+               <span className="text-zinc-500">Not a Cubicle.</span>
+             </h2>
+             <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
+               Most software is built by developers who have never held a golf club. 
+               <strong className="text-white"> Venue Engine was built inside a live, high-volume venue in Vanderbijlpark.</strong>
+             </p>
+             <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                   <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
+                      <UserCheck className="w-4 h-4" />
+                   </div>
+                   <div>
+                      <h4 className="text-white font-bold">Battle Tested</h4>
+                      <p className="text-sm text-zinc-500">Our code processes 500+ golfers every weekend. If it breaks, *we* lose money.</p>
+                   </div>
+                </div>
+                <div className="flex items-start gap-4">
+                   <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
+                      <Hammer className="w-4 h-4" />
+                   </div>
+                   <div>
+                      <h4 className="text-white font-bold">Operator First</h4>
+                      <p className="text-sm text-zinc-500">Every feature exists because we needed it to survive. No fluff, just revenue tools.</p>
+                   </div>
+                </div>
+             </div>
+         </div>
+         <div className="w-full md:w-1/2 relative">
+             <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl opacity-20 blur-lg"></div>
+             <div className="relative aspect-video bg-zinc-900 border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                 <img src="/images/footerimage.jpeg" alt="Our Venue" className="w-full h-full object-cover opacity-80" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                 <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                    <div>
+                       <div className="text-white font-bold text-lg">Vanderbijlpark HQ</div>
+                       <div className="text-[10px] font-mono text-emerald-400 uppercase">Live Operations Node</div>
+                    </div>
+                    <div className="flex items-center gap-2 px-2 py-1 bg-black/50 backdrop-blur border border-white/10 rounded">
+                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                       <span className="text-[10px] font-mono text-white">Occupancy: 98%</span>
+                    </div>
+                 </div>
+             </div>
+         </div>
+      </div>
+    </div>
+  </section>
+);
+
+// --- UPGRADED MIGRATION TIMELINE (SCROLL LINKED) ---
+const MigrationTimeline = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start center", "end center"]
+  });
+  
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <section ref={ref} className="py-24 px-6 bg-black border-t border-white/5">
+      <div className="max-w-4xl mx-auto relative">
+        <h2 className="text-3xl md:text-5xl font-serif text-white mb-20 text-center">7-Day Implementation Protocol</h2>
+        
+        {/* Animated Vertical Line */}
+        <div className="absolute left-[27px] top-24 bottom-24 w-[1px] bg-zinc-800">
+            <motion.div 
+              style={{ scaleY, transformOrigin: "top" }} 
+              className="absolute top-0 left-0 w-full h-full bg-emerald-500" 
+            />
+        </div>
+        
+        <div className="space-y-16">
+          {[
+            { day: "Day 1", title: "Strategy & Setup", desc: "We map your current pricing, hours, and hardware stack." },
+            { day: "Day 3", title: "Shadow Mode", desc: "We deploy your shadow environment. You test bookings without affecting live revenue." },
+            { day: "Day 5", title: "Connection", desc: "Our engineers connect remotely to your Trackman/Uneekor PCs to install the local bridge." },
+            { day: "Day 7", title: "Go Live", desc: "DNS update. We flip the switch at 3AM local time. Zero downtime." }
+          ].map((item, i) => (
+            <motion.div 
+               key={i} 
+               initial={{ opacity: 0, x: -20 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true, margin: "-100px" }}
+               transition={{ duration: 0.5, delay: i * 0.1 }}
+               className="relative flex gap-10 group"
+            >
+              {/* Node */}
+              <div className="relative z-10 w-14 h-14 rounded-full bg-[#0A0A0A] border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-emerald-500 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-500">
+                 <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-emerald-500 transition-colors" />
+              </div>
+              
+              {/* Content */}
+              <div className="pt-2">
+                 <span className="text-xs font-mono text-emerald-500 uppercase tracking-widest mb-2 block">{item.day}</span>
+                 <h3 className="text-2xl text-white font-serif mb-3">{item.title}</h3>
+                 <p className="text-zinc-400 text-lg leading-relaxed max-w-lg">{item.desc}</p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -743,93 +856,6 @@ const HardwareStack = () => {
   );
 };
 
-// --- UPGRADED NETWORK STATUS ---
-const NetworkStatus = () => (
-  <section className="py-24 border-t border-white/5 bg-[#050505] relative overflow-hidden">
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/10 via-black to-black"></div>
-    <div className="max-w-7xl mx-auto px-6 relative z-10">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-4">
-            <Globe className="w-3 h-3" /> Global Infrastructure
-          </div>
-          <h2 className="text-3xl md:text-5xl font-serif text-white">Venues Powered By Us</h2>
-        </div>
-        <div className="text-right text-zinc-500 font-mono text-xs">
-          <div className="flex items-center justify-end gap-2 mb-1">
-             <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"/>
-             LATENCY: 24ms
-          </div>
-          REGION: US-EAST-1
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          { city: "Austin, TX", status: "Operational", venues: 12 },
-          { city: "New York, NY", status: "High Load", venues: 8 },
-          { city: "Chicago, IL", status: "Operational", venues: 15 },
-          { city: "Miami, FL", status: "Deploying...", venues: 3 },
-          { city: "London, UK", status: "Operational", venues: 6 },
-          { city: "Dubai, UAE", status: "Operational", venues: 4 },
-        ].map((node) => (
-          <div key={node.city} className="group flex items-center justify-between p-6 border border-white/5 bg-zinc-900/20 rounded-xl hover:bg-zinc-900/40 hover:border-emerald-500/30 transition-all">
-            <div className="flex flex-col">
-               <div className="flex items-center gap-3 mb-2">
-                 <MapPin className="w-4 h-4 text-zinc-600 group-hover:text-emerald-500 transition-colors" />
-                 <span className="text-white font-bold text-lg">{node.city}</span>
-               </div>
-               <div className="flex items-center gap-2">
-                  <div className={`w-1.5 h-1.5 rounded-full ${node.status === 'Operational' ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse`}></div>
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-widest">{node.status}</span>
-               </div>
-            </div>
-            <div className="text-right">
-               <span className="text-2xl font-mono text-zinc-200">{node.venues}</span>
-               <p className="text-[10px] text-zinc-600 uppercase tracking-wider">Venues</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-// --- UPGRADED MIGRATION TIMELINE ---
-const MigrationTimeline = () => (
-  <section className="py-24 px-6 bg-black border-t border-white/5">
-    <div className="max-w-4xl mx-auto">
-      <h2 className="text-3xl md:text-5xl font-serif text-white mb-20 text-center">7-Day Implementation Protocol</h2>
-      
-      <div className="relative space-y-12">
-        {/* Vertical Line */}
-        <div className="absolute left-[27px] top-4 bottom-4 w-[1px] bg-zinc-800"></div>
-        
-        {[
-          { day: "Day 1", title: "Strategy & Setup", desc: "We map your current pricing, hours, and hardware stack." },
-          { day: "Day 3", title: "Shadow Mode", desc: "We deploy your shadow environment. You test bookings without affecting live revenue." },
-          { day: "Day 5", title: "Connection", desc: "Our engineers connect remotely to your Trackman/Uneekor PCs to install the local bridge." },
-          { day: "Day 7", title: "Go Live", desc: "DNS update. We flip the switch at 3AM local time. Zero downtime." }
-        ].map((item, i) => (
-          <div key={i} className="relative flex gap-10 group">
-            {/* Node */}
-            <div className="relative z-10 w-14 h-14 rounded-full bg-[#0A0A0A] border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-emerald-500 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-500">
-               <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-emerald-500 transition-colors" />
-            </div>
-            
-            {/* Content */}
-            <div className="pt-2">
-               <span className="text-xs font-mono text-emerald-500 uppercase tracking-widest mb-2 block">{item.day}</span>
-               <h3 className="text-2xl text-white font-serif mb-3">{item.title}</h3>
-               <p className="text-zinc-400 text-lg leading-relaxed max-w-lg">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
 // --- MAIN PAGE COMPONENT ---
 
 export default function LandingPage() {
@@ -849,12 +875,11 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-zinc-100 text-black flex items-center justify-center font-serif font-bold rounded-sm">V</div>
               <span className="font-serif text-lg tracking-tight text-white">Venue Engine</span>
            </div>
-           {/* NEW: "Partner Access" linking to /partner */}
-<Link href="/partner" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
-  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-  Partner Access
-  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-</Link>
+           <Link href="/partner" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Partner Access
+              <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+           </Link>
         </div>
       </nav>
 
@@ -906,8 +931,8 @@ export default function LandingPage() {
                      delay={0.1}
                      icon={<Mic className="w-6 h-6" />}
                      title="Neural Voice Agent"
-                     badge="OpenAI Whisper"
-                     desc="A 24/7 AI Receptionist that negotiates times, answers FAQs about club specs, and texts Stripe payment links instantly. Handles 10,000 simultaneous calls."
+                     badge="Write-Access Enabled"
+                     desc="A 24/7 AI Receptionist that negotiates times, answers FAQs, and can physically book slots in your database. It handles 10,000 simultaneous calls."
                   />
                </div>
                <div className="md:col-span-4">
@@ -945,7 +970,7 @@ export default function LandingPage() {
 
       <HardwareStack />
       <BenefitMatrix />
-      <NetworkStatus />
+      <BornInTheArena />
       <MigrationTimeline />
       <BespokeFoundry />
       <ArchitectLetter />
@@ -961,33 +986,29 @@ export default function LandingPage() {
                 We don't sell software. <br/> <span className="text-zinc-600">We sell revenue.</span>
              </h2>
              <p className="text-base md:text-lg text-zinc-400 mb-12 max-w-xl mx-auto font-light leading-relaxed">
-                If Venue Engine does not recover its own monthly cost in captured "Ghost Revenue" within 30 days, I will refund your implementation fee in full.
+                If Venue Engine does not recover at least <strong>$2,500 in "Ghost Revenue"</strong> (prevented no-shows & automated bookings) within your first 30 days, I will refund your entire implementation fee.
              </p>
-             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
-    {/* OLD: "Deploy System" linking to /demo */}
-    {/* NEW: "Initialize Audit" linking to /partner */}
-    <Link href="/partner" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
-       <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-       <span className="relative z-10 flex items-center gap-2">
-          Initialize Audit 
-          <ArrowRight className="w-4 h-4" />
-       </span>
-    </Link>
-    
-    {/* OLD: "Simulate Revenue" linking to nothing */}
-    {/* NEW: "View Live Demo" linking to /demo (The Dashboard Simulation) */}
-    <Link href="/demo" className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
-       <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> 
-       View Live Demo
-    </Link>
-</div>
+             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center">
+                <Link href="/partner" className="group relative h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
+                   <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                   <span className="relative z-10 flex items-center gap-2">
+                      Initialize Audit 
+                      <ArrowRight className="w-4 h-4" />
+                   </span>
+                </Link>
+                
+                <Link href="/demo" className="h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
+                   <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> 
+                   View Live Demo
+                </Link>
+            </div>
          </div>
       </section>
 
       <footer className="py-8 md:py-12 border-t border-white/5 bg-black text-center relative z-10">
          <div className="flex flex-col items-center gap-4">
             <p className="text-[10px] text-zinc-600 font-mono uppercase tracking-widest">
-               © 2025 Venue Engine • New York • London • Dubai • Johannesburg
+               © 2025 Venue Engine • Global Operations
             </p>
             <div className="flex gap-4 text-[10px] text-zinc-700 font-mono uppercase">
                <span>System Status: Nominal</span>
