@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { 
-  ArrowRight, Zap, Shield, CheckCircle2, XCircle, Terminal, 
+import {
+  ArrowRight, Zap, Shield, CheckCircle2, XCircle, Terminal,
   BarChart3, Mic, Server, Lock, Globe, Cpu, ChevronRight, Play,
   Code2, PenTool, Hammer, MapPin, Database, Key, Wifi, CreditCard,
-  FileText, UserCheck, TrendingUp, Quote, Network, Activity, Phone 
+  FileText, UserCheck, TrendingUp, Quote, Network, Activity, Phone
 } from 'lucide-react';
 
 // --- SEO & SCHEMA ---
@@ -44,7 +44,7 @@ const MouseSpotlight = () => {
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 pointer-events-none z-30 transition-opacity duration-500 hidden md:block"
       style={{
         background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16,185,129,0.15), transparent 80%)`
@@ -64,35 +64,35 @@ const CodeTerminal = () => {
   ];
   return (
     <div className="w-full max-w-lg mx-auto bg-[#0A0A0A] border border-white/10 rounded-lg overflow-hidden shadow-2xl font-mono text-[10px] md:text-xs relative group">
-       <div className="bg-[#111] px-4 py-2 flex gap-2 border-b border-white/5">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
-          <div className="ml-auto text-zinc-500 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">Revenue_Guard_Active</div>
-       </div>
-       <div className="p-4 h-40 md:h-48 flex flex-col justify-end text-zinc-400 space-y-2">
-          {logs.map((log, i) => (
-             <motion.div 
-               key={i}
-               initial={{ opacity: 0, x: -10 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ delay: i * 0.6 }}
-               className="flex items-center gap-2 md:gap-3 truncate"
-             >
-                <span className="text-emerald-500 shrink-0">➜</span>
-                <span className={log.includes("Captured") || log.includes("Active") ? "text-white font-bold bg-emerald-900/20 px-1 rounded truncate" : "text-zinc-400 truncate"}>
-                  {log}
-                </span>
-             </motion.div>
-          ))}
-          <div className="text-emerald-500/50 animate-pulse mt-2">_watching_schedule...</div>
-       </div>
+      <div className="bg-[#111] px-4 py-2 flex gap-2 border-b border-white/5">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+        <div className="ml-auto text-zinc-500 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">Revenue_Guard_Active</div>
+      </div>
+      <div className="p-4 h-40 md:h-48 flex flex-col justify-end text-zinc-400 space-y-2">
+        {logs.map((log, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.6 }}
+            className="flex items-center gap-2 md:gap-3 truncate"
+          >
+            <span className="text-emerald-500 shrink-0">➜</span>
+            <span className={log.includes("Captured") || log.includes("Active") ? "text-white font-bold bg-emerald-900/20 px-1 rounded truncate" : "text-zinc-400 truncate"}>
+              {log}
+            </span>
+          </motion.div>
+        ))}
+        <div className="text-emerald-500/50 animate-pulse mt-2">_watching_schedule...</div>
+      </div>
     </div>
   );
 };
 
 const FeatureCard = ({ title, desc, icon, delay, highlight = false, badge, metric }: any) => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -127,16 +127,16 @@ const FeatureCard = ({ title, desc, icon, delay, highlight = false, badge, metri
 // --- ORBITAL SYSTEM ---
 const OrbitalSystem = () => {
   const OrbitIcon = ({ delay, radius, children, speed = 20 }: any) => (
-    <div 
+    <div
       className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-      style={{ 
-        width: radius * 2, 
+      style={{
+        width: radius * 2,
         height: radius * 2,
         animation: `spin ${speed}s linear infinite`,
         animationDelay: `-${delay}s`
       }}
     >
-      <div 
+      <div
         className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{ animation: `spin ${speed}s linear infinite reverse`, animationDelay: `-${delay}s` }}
       >
@@ -154,7 +154,7 @@ const OrbitalSystem = () => {
     <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] flex items-center justify-center scale-75 md:scale-100">
       <div className="relative z-20 w-24 h-24 bg-gradient-to-br from-emerald-900 to-black rounded-full border border-emerald-500/30 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.2)]">
         <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center border border-white/10">
-           <span className="font-serif font-bold text-2xl text-white">V</span>
+          <span className="font-serif font-bold text-2xl text-white">V</span>
         </div>
         <div className="absolute inset-0 border border-emerald-500/20 rounded-full animate-ping opacity-20"></div>
       </div>
@@ -164,26 +164,26 @@ const OrbitalSystem = () => {
       <div className="absolute inset-[30%] border border-white/5 rounded-full" />
 
       <OrbitIcon radius={100} delay={0} speed={25}>
-         <div className="text-xs font-bold text-white px-2">STRIPE</div>
+        <div className="text-xs font-bold text-white px-2">STRIPE</div>
       </OrbitIcon>
       <OrbitIcon radius={100} delay={8} speed={25}>
-         <div className="text-xs font-bold text-white px-2">TWILIO</div>
+        <div className="text-xs font-bold text-white px-2">TWILIO</div>
       </OrbitIcon>
       <OrbitIcon radius={100} delay={16} speed={25}>
-         <div className="text-xs font-bold text-white px-2">OPENAI</div>
+        <div className="text-xs font-bold text-white px-2">OPENAI</div>
       </OrbitIcon>
 
       <OrbitIcon radius={180} delay={0} speed={40}>
-         <div className="text-xs font-bold text-zinc-400 px-2">TRACKMAN</div>
+        <div className="text-xs font-bold text-zinc-400 px-2">TRACKMAN</div>
       </OrbitIcon>
       <OrbitIcon radius={180} delay={10} speed={40}>
-         <div className="text-xs font-bold text-zinc-400 px-2">UNEEKOR</div>
+        <div className="text-xs font-bold text-zinc-400 px-2">UNEEKOR</div>
       </OrbitIcon>
       <OrbitIcon radius={180} delay={20} speed={40}>
-         <div className="text-xs font-bold text-zinc-400 px-2">BRIVO</div>
+        <div className="text-xs font-bold text-zinc-400 px-2">BRIVO</div>
       </OrbitIcon>
       <OrbitIcon radius={180} delay={30} speed={40}>
-         <div className="text-xs font-bold text-zinc-400 px-2">HUBSPOT</div>
+        <div className="text-xs font-bold text-zinc-400 px-2">HUBSPOT</div>
       </OrbitIcon>
 
       <style jsx global>{`
@@ -202,24 +202,24 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-24 md:pt-32 px-4 md:px-6 overflow-hidden">
       <div className="absolute inset-0 bg-grid-white opacity-[0.03] pointer-events-none" />
-      
+
       <div className="relative z-10 text-center max-w-5xl mx-auto w-full">
-        <motion.div 
-           initial={{ opacity: 0, y: -20 }} 
-           animate={{ opacity: 1, y: 0 }} 
-           transition={{ duration: 0.8 }}
-           className="inline-flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1.5 rounded-full bg-zinc-900/50 border border-white/10 mb-8 md:mb-10 backdrop-blur-md"
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="inline-flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1.5 rounded-full bg-zinc-900/50 border border-white/10 mb-8 md:mb-10 backdrop-blur-md"
         >
-           <span className="flex h-2 w-2 relative">
-             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-           </span>
-           <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-300">
-             Operational <span className="text-emerald-600 px-2">|</span> <span className="text-white">Accepting Partners</span>
-           </span>
+          <span className="flex h-2 w-2 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-300">
+            Operational <span className="text-emerald-600 px-2">|</span> <span className="text-white">Accepting Partners</span>
+          </span>
         </motion.div>
 
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
@@ -229,7 +229,7 @@ const HeroSection = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-400 to-emerald-900">Infrastructure.</span>
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -240,25 +240,25 @@ const HeroSection = () => {
           <span className="text-white border-b border-emerald-500/30 pb-1">Automate deposits, voice calls, and waitlists.</span>
         </motion.p>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col items-center gap-8 md:gap-12 w-full"
         >
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
-             <Link href="/partner" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
-               <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-               <span className="relative z-10 flex items-center gap-2">Initialize Audit <ArrowRight className="w-4 h-4" /></span>
-             </Link>
-             <Link href="/demo" className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
-               <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> Watch Demo
-             </Link>
+            <Link href="/partner" className="group relative h-12 md:h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
+              <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              <span className="relative z-10 flex items-center gap-2">Initialize Audit <ArrowRight className="w-4 h-4" /></span>
+            </Link>
+            <Link href="/demo" className="h-12 md:h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
+              <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> Watch Demo
+            </Link>
           </div>
 
           <div className="relative w-full max-w-2xl px-2">
-             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg blur opacity-20 animate-pulse"></div>
-             <CodeTerminal />
+            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg blur opacity-20 animate-pulse"></div>
+            <CodeTerminal />
           </div>
         </motion.div>
       </div>
@@ -267,33 +267,33 @@ const HeroSection = () => {
 };
 
 const IntegrationSection = () => (
-   <section className="py-24 border-y border-white/5 bg-black overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-         <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-900/10 border border-emerald-500/20 rounded-full text-[10px] font-mono uppercase text-emerald-400 mb-6">
-                <Network className="w-3 h-3" /> The Brain of Your Business
+  <section className="py-24 border-y border-white/5 bg-black overflow-hidden relative">
+    <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-900/10 border border-emerald-500/20 rounded-full text-[10px] font-mono uppercase text-emerald-400 mb-6">
+          <Network className="w-3 h-3" /> The Brain of Your Business
+        </div>
+        <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+          Your Venue, <br />
+          <span className="text-zinc-500">Fully Connected.</span>
+        </h2>
+        <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
+          We don't just "integrate." We act as the brain. When a booking drops in Stripe, we unlock the Brivo door, power on the Trackman PC, and log the customer in Salesforce.
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          {['Instant Updates', 'No Messy Plugins', 'Lightning Fast', 'Developer Ready'].map(item => (
+            <div key={item} className="flex items-center gap-2 text-sm text-zinc-300">
+              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+              {item}
             </div>
-            <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
-               Your Venue, <br/>
-               <span className="text-zinc-500">Fully Connected.</span>
-            </h2>
-            <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
-               We don't just "integrate." We act as the brain. When a booking drops in Stripe, we unlock the Brivo door, power on the Trackman PC, and log the customer in Salesforce.
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-                {['Instant Updates', 'No Messy Plugins', 'Lightning Fast', 'Developer Ready'].map(item => (
-                    <div key={item} className="flex items-center gap-2 text-sm text-zinc-300">
-                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
-                        {item}
-                    </div>
-                ))}
-            </div>
-         </div>
-         <div className="flex justify-center">
-            <OrbitalSystem />
-         </div>
+          ))}
+        </div>
       </div>
-   </section>
+      <div className="flex justify-center">
+        <OrbitalSystem />
+      </div>
+    </div>
+  </section>
 );
 
 const ComparisonSlider = () => {
@@ -302,102 +302,206 @@ const ComparisonSlider = () => {
     <div className="relative w-full max-w-5xl mx-auto h-[350px] md:h-[500px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl group cursor-ew-resize select-none touch-none">
       {/* LEFT: HELL */}
       <div className="absolute inset-0 bg-[#050000] flex items-center justify-center border-r border-white/5">
-          <div className="text-center opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700 px-4">
-             <XCircle className="w-12 h-12 md:w-20 md:h-20 text-red-900 mx-auto mb-4 md:mb-6" />
-             <h3 className="text-red-800 font-serif text-3xl md:text-5xl mb-2">MANUAL CHAOS</h3>
-             <p className="text-red-900/70 font-mono tracking-widest uppercase mt-2 md:mt-4 text-[10px] md:text-xs">
-                Phone Tag • Empty Bays • No Deposits
-             </p>
-             <div className="mt-4 md:mt-6 text-red-600 font-mono text-lg md:text-xl">-$4,200 / Month</div>
-          </div>
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        <div className="text-center opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700 px-4">
+          <XCircle className="w-12 h-12 md:w-20 md:h-20 text-red-900 mx-auto mb-4 md:mb-6" />
+          <h3 className="text-red-800 font-serif text-3xl md:text-5xl mb-2">MANUAL CHAOS</h3>
+          <p className="text-red-900/70 font-mono tracking-widest uppercase mt-2 md:mt-4 text-[10px] md:text-xs">
+            Phone Tag • Empty Bays • No Deposits
+          </p>
+          <div className="mt-4 md:mt-6 text-red-600 font-mono text-lg md:text-xl">-$4,200 / Month</div>
+        </div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
       </div>
-      
+
       {/* RIGHT: HEAVEN */}
-      <div 
-         className="absolute inset-0 bg-[#000502] flex items-center justify-center overflow-hidden"
-         style={{ clipPath: `inset(0 0 0 ${sliderVal}%)` }}
+      <div
+        className="absolute inset-0 bg-[#000502] flex items-center justify-center overflow-hidden"
+        style={{ clipPath: `inset(0 0 0 ${sliderVal}%)` }}
       >
-          <div className="text-center w-full max-w-5xl mx-auto px-4 md:px-10">
-             <CheckCircle2 className="w-12 h-12 md:w-20 md:h-20 text-emerald-500 mx-auto mb-4 md:mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
-             <h3 className="text-white font-serif text-3xl md:text-5xl mb-2 drop-shadow-xl">AUTOMATED GROWTH</h3>
-             <p className="text-emerald-500 font-mono tracking-widest uppercase mt-2 md:mt-4 text-[10px] md:text-xs">
-                40% Deposits • AI Booking • 100% Fill Rate
-             </p>
-             <div className="mt-6 md:mt-8 inline-flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border border-emerald-500/30 rounded text-[10px] md:text-xs text-emerald-400 font-mono uppercase">
-                <Terminal className="w-3 h-3" />
-                <span>$240.00 Recovered</span>
-             </div>
+        <div className="text-center w-full max-w-5xl mx-auto px-4 md:px-10">
+          <CheckCircle2 className="w-12 h-12 md:w-20 md:h-20 text-emerald-500 mx-auto mb-4 md:mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+          <h3 className="text-white font-serif text-3xl md:text-5xl mb-2 drop-shadow-xl">AUTOMATED GROWTH</h3>
+          <p className="text-emerald-500 font-mono tracking-widest uppercase mt-2 md:mt-4 text-[10px] md:text-xs">
+            40% Deposits • AI Booking • 100% Fill Rate
+          </p>
+          <div className="mt-6 md:mt-8 inline-flex items-center gap-2 px-4 py-2 bg-emerald-900/30 border border-emerald-500/30 rounded text-[10px] md:text-xs text-emerald-400 font-mono uppercase">
+            <Terminal className="w-3 h-3" />
+            <span>$240.00 Recovered</span>
           </div>
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        </div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
       </div>
 
       {/* HANDLE */}
       <div className="absolute top-0 bottom-0 w-1 bg-white z-20 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.8)]" style={{ left: `${sliderVal}%` }}>
-         <div className="w-8 h-8 md:w-12 md:h-12 bg-black border border-white rounded-full flex items-center justify-center shadow-2xl">
-            <div className="flex gap-1">
-               <div className="w-0.5 h-3 md:h-4 bg-white" />
-               <div className="w-0.5 h-3 md:h-4 bg-white" />
-            </div>
-         </div>
+        <div className="w-8 h-8 md:w-12 md:h-12 bg-black border border-white rounded-full flex items-center justify-center shadow-2xl">
+          <div className="flex gap-1">
+            <div className="w-0.5 h-3 md:h-4 bg-white" />
+            <div className="w-0.5 h-3 md:h-4 bg-white" />
+          </div>
+        </div>
       </div>
-      <input 
-        type="range" 
-        min="0" 
-        max="100" 
-        value={sliderVal} 
-        onChange={(e) => setSliderVal(parseInt(e.target.value))} 
-        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30" 
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={sliderVal}
+        onChange={(e) => setSliderVal(parseInt(e.target.value))}
+        className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30"
         aria-label="Compare manual versus automated revenue"
       />
     </div>
   );
 };
 
-// --- UPGRADED BENEFIT MATRIX ---
+const BenefitCard = ({ item }: { item: any }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isHovered && item.slides && item.slides.length > 0) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % item.slides.length);
+      }, 2500); // 2.5s per slide
+    } else {
+      setCurrentSlide(0);
+    }
+    return () => clearInterval(interval);
+  }, [isHovered, item.slides]);
+
+  return (
+    <motion.div
+      layout
+      className={`group relative bg-[#0A0A0A] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-colors duration-500 flex flex-col justify-between ${isHovered ? 'z-50' : 'z-0'}`}
+      style={{
+        zIndex: isHovered ? 50 : 0
+      }}
+      animate={{
+        height: isHovered ? 450 : 320, // Expand height on hover
+        transition: { duration: 0.4, ease: "easeOut" }
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Background Slideshow */}
+      <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 bg-black/60 z-10" /> {/* Dimmer overlay for text readability */}
+        {item.slides && item.slides.length > 0 ? (
+          item.slides.map((slide: string, index: number) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: index === currentSlide ? 1 : 0 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${slide})` }}
+            />
+          ))
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 via-transparent to-transparent"></div>
+        )}
+      </div>
+
+      {/* Hover Gradient Glow (Front) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"></div>
+
+      <div className="relative z-20 p-8 h-full flex flex-col">
+        {/* Header: Icon + Status */}
+        <motion.div layout="position" className="flex justify-between items-start mb-6">
+          <div className="w-12 h-12 rounded-xl bg-zinc-900/80 backdrop-blur-sm border border-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+            {item.icon}
+          </div>
+          <div className="flex items-center gap-2 px-2 py-1 bg-zinc-900/80 backdrop-blur-sm rounded border border-white/5">
+            <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
+            <span className="text-[9px] font-mono text-zinc-500 uppercase">{item.status}</span>
+          </div>
+        </motion.div>
+
+        {/* Content */}
+        <motion.div layout="position" className="flex-grow">
+          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-500 transition-colors duration-300 drop-shadow-md">{item.title}</h3>
+          <p className="text-sm text-zinc-400 leading-relaxed mb-6 group-hover:text-white transition-colors drop-shadow-sm relative">
+            <span className="relative z-10">{item.desc}</span>
+          </p>
+        </motion.div>
+
+        {/* Footer: Technical Stat */}
+        <motion.div layout="position" className="pt-4 border-t border-white/5 flex justify-between items-center bg-transparent group-hover:border-white/10 transition-colors mt-auto">
+          <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest group-hover:text-zinc-500 transition-colors">Protocol</span>
+          <span className="text-[10px] font-mono text-zinc-400 bg-white/5 px-2 py-0.5 rounded border border-white/5 backdrop-blur-sm">
+            {item.stat}
+          </span>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
 const BenefitMatrix = () => {
   const features = [
-    { 
-      icon: <Key className="w-6 h-6 text-emerald-400" />, 
-      title: "Smart Access", 
-      desc: "Integrates with Kisi/Brivo. Doors unlock automatically 15 mins before booking.", 
+    {
+      icon: <Key className="w-6 h-6 text-emerald-400" />,
+      title: "Smart Access",
+      desc: "Integrates with Kisi/Brivo. Doors unlock automatically 15 mins before booking.",
       stat: "Access Control",
-      status: "Online"
+      status: "Online",
+      slides: [
+        "/images/features/smart-access.png",
+      ]
     },
-    { 
-      icon: <CreditCard className="w-6 h-6 text-blue-400" />, 
-      title: "Split Payments", 
-      desc: "Players split bills instantly via Apple Pay. No more math at the counter.", 
+    {
+      icon: <CreditCard className="w-6 h-6 text-blue-400" />,
+      title: "Split Payments",
+      desc: "Players split bills instantly via Apple Pay. No more math at the counter.",
       stat: "Instant Payouts",
-      status: "Active"
+      status: "Active",
+      slides: [
+        "/images/features/split-payments.png",
+      ]
     },
-    { 
-      icon: <Database className="w-6 h-6 text-purple-400" />, 
-      title: "CRM Sync", 
-      desc: "Auto-tag 'Whales' and 'Churn Risks' in HubSpot based on spend velocity.", 
+    {
+      icon: <Database className="w-6 h-6 text-purple-400" />,
+      title: "CRM Sync",
+      desc: "Auto-tag 'Whales' and 'Churn Risks' in HubSpot based on spend velocity.",
       stat: "Live Sync",
-      status: "Live"
+      status: "Live",
+      slides: [
+        "/images/features/sub-gold.png", // Whales
+        "/images/features/sub-silver-break.png", // Churn Risks
+        "/images/features/sub-silver.png",
+      ]
     },
-    { 
-      icon: <Wifi className="w-6 h-6 text-amber-400" />, 
-      title: "Sim Kill Switch", 
-      desc: "We physically cut power to the projector if the booking isn't paid. Ultimate enforcement.", 
+    {
+      icon: <Wifi className="w-6 h-6 text-amber-400" />,
+      title: "Sim Kill Switch",
+      desc: "We physically cut power to the projector if the booking isn't paid. Ultimate enforcement.",
       stat: "Hard Relay",
-      status: "Armed"
+      status: "Armed",
+      slides: [
+        "/images/features/kill-switch.png",
+      ]
     },
-    { 
-      icon: <FileText className="w-6 h-6 text-pink-400" />, 
-      title: "Auto-Invoicing", 
-      desc: "Generate compliant PDF invoices and email them to finance automatically.", 
+    {
+      icon: <FileText className="w-6 h-6 text-pink-400" />,
+      title: "Auto-Invoicing",
+      desc: "Generate compliant PDF invoices and email them to finance automatically.",
       stat: "PDF Engine",
-      status: "Ready"
+      status: "Ready",
+      slides: [
+        "/images/features/auto-invoicing.png",
+      ]
     },
-    { 
-      icon: <UserCheck className="w-6 h-6 text-cyan-400" />, 
-      title: "Member Portal", 
-      desc: "Self-service cancellations, upgrades, and subscription management.", 
+    {
+      icon: <UserCheck className="w-6 h-6 text-cyan-400" />,
+      title: "Member Portal",
+      desc: "Self-service cancellations, upgrades, and subscription management.",
       stat: "Member Login",
-      status: "Active"
+      status: "Active",
+      slides: [
+        "/images/features/calendar-booking.png",
+        "/images/features/calendar-cancel.png",
+      ]
     },
   ];
 
@@ -405,12 +509,12 @@ const BenefitMatrix = () => {
     <section className="py-24 md:py-32 bg-black relative z-10 border-t border-white/5 overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]"></div>
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-6">
-             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-             System Modules
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+            System Modules
           </div>
           <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 tracking-tighter">
             Complete Operational Control
@@ -419,41 +523,10 @@ const BenefitMatrix = () => {
             From the front door to the balance sheet. We handle the bits you hate.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((item, i) => (
-            <div 
-              key={i} 
-              className="group relative bg-[#0A0A0A] border border-white/5 p-8 rounded-2xl overflow-hidden hover:border-white/10 transition-all duration-500"
-            >
-              {/* Hover Gradient Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              
-              <div className="relative z-10">
-                {/* Header: Icon + Status */}
-                <div className="flex justify-between items-start mb-6">
-                   <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                      {item.icon}
-                   </div>
-                   <div className="flex items-center gap-2 px-2 py-1 bg-zinc-900 rounded border border-white/5">
-                      <div className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
-                      <span className="text-[9px] font-mono text-zinc-500 uppercase">{item.status}</span>
-                   </div>
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-500 transition-colors duration-300">{item.title}</h3>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-6">{item.desc}</p>
-
-                {/* Footer: Technical Stat */}
-                <div className="pt-4 border-t border-white/5 flex justify-between items-center">
-                   <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">Protocol</span>
-                   <span className="text-[10px] font-mono text-zinc-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">
-                      {item.stat}
-                   </span>
-                </div>
-              </div>
-            </div>
+            <BenefitCard key={i} item={item} />
           ))}
         </div>
       </div>
@@ -467,56 +540,56 @@ const BornInTheArena = () => (
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/10 via-black to-black"></div>
     <div className="max-w-7xl mx-auto px-6 relative z-10">
       <div className="flex flex-col md:flex-row gap-12 items-center">
-         <div className="w-full md:w-1/2">
-             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-6">
-                 <MapPin className="w-3 h-3" /> Origin Story
-             </div>
-             <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
-               Born in the Arena. <br/>
-               <span className="text-zinc-500">Not a Cubicle.</span>
-             </h2>
-             <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
-               Most software is built by developers who have never held a golf club. 
-               <strong className="text-white"> Venue Engine was built inside a live, high-volume venue in Vanderbijlpark.</strong>
-             </p>
-             <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                   <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
-                      <UserCheck className="w-4 h-4" />
-                   </div>
-                   <div>
-                      <h4 className="text-white font-bold">Battle Tested</h4>
-                      <p className="text-sm text-zinc-500">Our code processes 500+ golfers every weekend. If it breaks, *we* lose money.</p>
-                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                   <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
-                      <Hammer className="w-4 h-4" />
-                   </div>
-                   <div>
-                      <h4 className="text-white font-bold">Operator First</h4>
-                      <p className="text-sm text-zinc-500">Every feature exists because we needed it to survive. No fluff, just revenue tools.</p>
-                   </div>
-                </div>
-             </div>
-         </div>
-         <div className="w-full md:w-1/2 relative">
-             <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl opacity-20 blur-lg"></div>
-             <div className="relative aspect-video bg-zinc-900 border border-white/10 rounded-xl overflow-hidden shadow-2xl">
-                 <img src="/images/footerimage.jpeg" alt="Our Venue" className="w-full h-full object-cover opacity-80" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                 <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                    <div>
-                       <div className="text-white font-bold text-lg">Vanderbijlpark HQ</div>
-                       <div className="text-[10px] font-mono text-emerald-400 uppercase">Live Operations Node</div>
-                    </div>
-                    <div className="flex items-center gap-2 px-2 py-1 bg-black/50 backdrop-blur border border-white/10 rounded">
-                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
-                       <span className="text-[10px] font-mono text-white">Occupancy: 98%</span>
-                    </div>
-                 </div>
-             </div>
-         </div>
+        <div className="w-full md:w-1/2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-6">
+            <MapPin className="w-3 h-3" /> Origin Story
+          </div>
+          <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
+            Born in the Arena. <br />
+            <span className="text-zinc-500">Not a Cubicle.</span>
+          </h2>
+          <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
+            Most software is built by developers who have never held a golf club.
+            <strong className="text-white"> Venue Engine was built inside a live, high-volume venue in Vanderbijlpark.</strong>
+          </p>
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
+                <UserCheck className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-white font-bold">Battle Tested</h4>
+                <p className="text-sm text-zinc-500">Our code processes 500+ golfers every weekend. If it breaks, *we* lose money.</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 rounded bg-zinc-900 border border-white/10 flex items-center justify-center shrink-0 text-emerald-500">
+                <Hammer className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-white font-bold">Operator First</h4>
+                <p className="text-sm text-zinc-500">Every feature exists because we needed it to survive. No fluff, just revenue tools.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full md:w-1/2 relative">
+          <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-2xl opacity-20 blur-lg"></div>
+          <div className="relative aspect-video bg-zinc-900 border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+            <img src="/images/footerimage.jpeg" alt="Our Venue" className="w-full h-full object-cover opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+              <div>
+                <div className="text-white font-bold text-lg">Vanderbijlpark HQ</div>
+                <div className="text-[10px] font-mono text-emerald-400 uppercase">Live Operations Node</div>
+              </div>
+              <div className="flex items-center gap-2 px-2 py-1 bg-black/50 backdrop-blur border border-white/10 rounded">
+                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span className="text-[10px] font-mono text-white">Occupancy: 98%</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -529,7 +602,7 @@ const MigrationTimeline = () => {
     target: ref,
     offset: ["start center", "end center"]
   });
-  
+
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -540,15 +613,15 @@ const MigrationTimeline = () => {
     <section ref={ref} className="py-24 px-6 bg-black border-t border-white/5">
       <div className="max-w-4xl mx-auto relative">
         <h2 className="text-3xl md:text-5xl font-serif text-white mb-20 text-center">7-Day Implementation Protocol</h2>
-        
+
         {/* Animated Vertical Line */}
         <div className="absolute left-[27px] top-24 bottom-24 w-[1px] bg-zinc-800">
-            <motion.div 
-              style={{ scaleY, transformOrigin: "top" }} 
-              className="absolute top-0 left-0 w-full h-full bg-emerald-500" 
-            />
+          <motion.div
+            style={{ scaleY, transformOrigin: "top" }}
+            className="absolute top-0 left-0 w-full h-full bg-emerald-500"
+          />
         </div>
-        
+
         <div className="space-y-16">
           {[
             { day: "Day 1", title: "Strategy & Setup", desc: "We map your current pricing, hours, and hardware stack." },
@@ -556,24 +629,24 @@ const MigrationTimeline = () => {
             { day: "Day 5", title: "Connection", desc: "Our engineers connect remotely to your Trackman/Uneekor PCs to install the local bridge." },
             { day: "Day 7", title: "Go Live", desc: "DNS update. We flip the switch at 3AM local time. Zero downtime." }
           ].map((item, i) => (
-            <motion.div 
-               key={i} 
-               initial={{ opacity: 0, x: -20 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true, margin: "-100px" }}
-               transition={{ duration: 0.5, delay: i * 0.1 }}
-               className="relative flex gap-10 group"
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="relative flex gap-10 group"
             >
               {/* Node */}
               <div className="relative z-10 w-14 h-14 rounded-full bg-[#0A0A0A] border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-emerald-500 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-500">
-                 <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-emerald-500 transition-colors" />
+                <div className="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-emerald-500 transition-colors" />
               </div>
-              
+
               {/* Content */}
               <div className="pt-2">
-                 <span className="text-xs font-mono text-emerald-500 uppercase tracking-widest mb-2 block">{item.day}</span>
-                 <h3 className="text-2xl text-white font-serif mb-3">{item.title}</h3>
-                 <p className="text-zinc-400 text-lg leading-relaxed max-w-lg">{item.desc}</p>
+                <span className="text-xs font-mono text-emerald-500 uppercase tracking-widest mb-2 block">{item.day}</span>
+                <h3 className="text-2xl text-white font-serif mb-3">{item.title}</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed max-w-lg">{item.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -588,29 +661,29 @@ const ArchitectLetter = () => (
     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zinc-900/30 rounded-full blur-[120px] pointer-events-none"></div>
     <div className="max-w-4xl mx-auto px-6 relative z-10">
       <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-        
+
         {/* FOUNDER IMAGE COLUMN */}
         <div className="w-full md:w-1/3">
           <div className="aspect-[3/4] bg-zinc-900 rounded-lg border border-white/10 relative overflow-hidden group shadow-2xl max-h-[400px] md:max-h-none mx-auto md:mx-0 w-3/4 md:w-full">
-             
-             {/* THE IMAGE */}
-             <img 
-               src="/images/founder.jpg" 
-               alt="Samuel Rencken - Founder of Venue Engine" 
-               className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100"
-             />
-             
-             {/* Gradient Overlay for Text Readability */}
-             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
 
-             {/* Label */}
-             <div className="absolute bottom-4 left-4">
-                <p className="text-white font-serif text-lg tracking-wide">Samuel Rencken</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                  <p className="text-emerald-500 text-xs font-mono uppercase tracking-widest">Lead Architect</p>
-                </div>
-             </div>
+            {/* THE IMAGE */}
+            <img
+              src="/images/founder.jpg"
+              alt="Samuel Rencken - Founder of Venue Engine"
+              className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100"
+            />
+
+            {/* Gradient Overlay for Text Readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+
+            {/* Label */}
+            <div className="absolute bottom-4 left-4">
+              <p className="text-white font-serif text-lg tracking-wide">Samuel Rencken</p>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <p className="text-emerald-500 text-xs font-mono uppercase tracking-widest">Lead Architect</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -633,8 +706,8 @@ const ArchitectLetter = () => (
             </p>
           </div>
           <div className="mt-8 pt-8 border-t border-white/10 flex items-center gap-4">
-             <div className="h-px w-12 bg-emerald-500"></div>
-             <p className="font-mono text-xs text-emerald-500 uppercase tracking-widest">End Transmission</p>
+            <div className="h-px w-12 bg-emerald-500"></div>
+            <p className="font-mono text-xs text-emerald-500 uppercase tracking-widest">End Transmission</p>
           </div>
         </div>
       </div>
@@ -643,154 +716,154 @@ const ArchitectLetter = () => (
 );
 
 const BespokeFoundry = () => {
-   return (
-      <section className="py-16 md:py-32 px-6 bg-[#030303] border-t border-white/5 relative overflow-hidden group">
-         {/* Background accent - Animated Blob */}
-         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[5000ms]"></div>
+  return (
+    <section className="py-16 md:py-32 px-6 bg-[#030303] border-t border-white/5 relative overflow-hidden group">
+      {/* Background accent - Animated Blob */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[5000ms]"></div>
 
-         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
-            
-            {/* LEFT COLUMN: COPY */}
-            <div>
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-emerald-400 mb-6 hover:bg-white/10 transition-colors cursor-default">
-                  <Hammer className="w-3 h-3" /> The Foundry Initiative
-               </div>
-               
-               <h2 className="text-5xl md:text-7xl font-serif text-white mb-6 tracking-tighter">
-                  Unlimited <br/> 
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">Engineering.</span>
-               </h2>
-               
-               <p className="text-lg text-zinc-400 mb-10 leading-relaxed max-w-md">
-                  Other software forces you to adapt to <i>their</i> workflow. <br/>
-                  <strong className="text-white">We code the software around yours.</strong>
-               </p>
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
 
-               <ul className="space-y-4 mb-12">
-                  {[
-                     { 
-                        icon: <PenTool className="w-5 h-5 text-white" />, 
-                        title: "Bespoke UI Design", 
-                        desc: "We redesign the dashboard to match your brand's specific aesthetic perfectly." 
-                     },
-                     { 
-                        icon: <Code2 className="w-5 h-5 text-emerald-500" />, 
-                        title: "Custom Integrations", 
-                        desc: "Need to sync with a legacy POS or a specific camera system? We write the API connectors." 
-                     }
-                  ].map((item, i) => (
-                     <li key={i} className="flex gap-5 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/30 transition-all duration-300 group/item cursor-default">
-                        <div className="w-12 h-12 rounded-lg bg-black border border-zinc-800 flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform shadow-lg">
-                           {item.icon}
-                        </div>
-                        <div>
-                           <h4 className="text-white font-bold mb-1 group-hover/item:text-emerald-400 transition-colors">{item.title}</h4>
-                           <p className="text-sm text-zinc-500 leading-snug">{item.desc}</p>
-                        </div>
-                     </li>
-                  ))}
-               </ul>
+        {/* LEFT COLUMN: COPY */}
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase text-emerald-400 mb-6 hover:bg-white/10 transition-colors cursor-default">
+            <Hammer className="w-3 h-3" /> The Foundry Initiative
+          </div>
 
-               <button className="flex items-center gap-2 text-emerald-500 border-b border-emerald-500/30 pb-1 hover:text-emerald-400 hover:border-emerald-400 transition-all font-mono text-xs uppercase tracking-widest group/btn">
-                 // View Engineering Retainer Docs 
-                 <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-               </button>
-            </div>
+          <h2 className="text-5xl md:text-7xl font-serif text-white mb-6 tracking-tighter">
+            Unlimited <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">Engineering.</span>
+          </h2>
 
-            {/* RIGHT COLUMN: THE VISUAL (Request -> Code) */}
-            <div className="relative">
-               {/* Glow behind the card */}
-               <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50"></div>
-               
-               <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 relative overflow-hidden shadow-2xl">
-                  
-                  {/* Grid Pattern inside Card */}
-                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+          <p className="text-lg text-zinc-400 mb-10 leading-relaxed max-w-md">
+            Other software forces you to adapt to <i>their</i> workflow. <br />
+            <strong className="text-white">We code the software around yours.</strong>
+          </p>
 
-                  {/* Message 1 (The Client Request) */}
-                  <motion.div 
-                     initial={{ opacity: 0, y: 20 }}
-                     whileInView={{ opacity: 1, y: 0 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: 0.2 }}
-                     className="flex justify-end mb-8 relative z-10"
-                  >
-                     <div className="bg-emerald-900/20 border border-emerald-500/30 text-emerald-100 px-5 py-4 rounded-2xl rounded-tr-sm text-sm max-w-sm shadow-[0_0_20px_rgba(16,185,129,0.1)] backdrop-blur-sm">
-                        "We need a custom leaderboard that tracks 'Longest Drive' from Trackman and displays it on the lobby TV."
-                     </div>
-                  </motion.div>
+          <ul className="space-y-4 mb-12">
+            {[
+              {
+                icon: <PenTool className="w-5 h-5 text-white" />,
+                title: "Bespoke UI Design",
+                desc: "We redesign the dashboard to match your brand's specific aesthetic perfectly."
+              },
+              {
+                icon: <Code2 className="w-5 h-5 text-emerald-500" />,
+                title: "Custom Integrations",
+                desc: "Need to sync with a legacy POS or a specific camera system? We write the API connectors."
+              }
+            ].map((item, i) => (
+              <li key={i} className="flex gap-5 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-emerald-500/30 transition-all duration-300 group/item cursor-default">
+                <div className="w-12 h-12 rounded-lg bg-black border border-zinc-800 flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform shadow-lg">
+                  {item.icon}
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-1 group-hover/item:text-emerald-400 transition-colors">{item.title}</h4>
+                  <p className="text-sm text-zinc-500 leading-snug">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
 
-                  {/* Message 2 (The System Response) */}
-                  <motion.div 
-                     initial={{ opacity: 0, y: 20 }}
-                     whileInView={{ opacity: 1, y: 0 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: 0.6 }}
-                     className="flex justify-start mb-8 relative z-10"
-                  >
-                     <div className="bg-zinc-900 border border-zinc-700 text-zinc-300 px-4 py-2 rounded-full text-xs flex items-center gap-3 shadow-lg">
-                        <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        <span className="font-mono">Ticket #492: <span className="text-white font-bold">In Progress</span></span>
-                     </div>
-                  </motion.div>
+          <button className="flex items-center gap-2 text-emerald-500 border-b border-emerald-500/30 pb-1 hover:text-emerald-400 hover:border-emerald-400 transition-all font-mono text-xs uppercase tracking-widest group/btn">
+                 // View Engineering Retainer Docs
+            <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
+          </button>
+        </div>
 
-                  {/* Code Block (The Solution) */}
-                  <motion.div 
-                     initial={{ opacity: 0, scale: 0.95 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: 1.0 }}
-                     className="bg-black/80 rounded-xl border border-white/10 p-5 font-mono text-[10px] md:text-xs text-zinc-500 overflow-hidden relative z-10 shadow-2xl"
-                  >
-                     {/* Window Controls */}
-                     <div className="flex gap-1.5 mb-4 border-b border-white/5 pb-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/20"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/20"></div>
-                     </div>
+        {/* RIGHT COLUMN: THE VISUAL (Request -> Code) */}
+        <div className="relative">
+          {/* Glow behind the card */}
+          <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-50"></div>
 
-                     <div className="space-y-1">
-                        <p><span className="text-purple-400">import</span> <span className="text-white">{`{ TrackmanAPI }`}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@venue/sdk'</span>;</p>
-                        <p className="h-2"></p>
-                        <p><span className="text-blue-400">export const</span> <span className="text-yellow-200">LeaderboardWidget</span> = <span className="text-white">async () ={`>`}</span> {'{'}</p>
-                        <p className="pl-4"><span className="text-zinc-500">// Fetch live telemetry</span></p>
-                        <p className="pl-4"><span className="text-blue-400">const</span> data = <span className="text-purple-400">await</span> TrackmanAPI.getMetrics('drive_distance');</p>
-                        <p className="pl-4"><span className="text-purple-400">return</span> <span className="text-white">{`<LobbyDisplay data={data} />`}</span></p>
-                        <p>{'}'}</p>
-                     </div>
-                  </motion.div>
+          <div className="bg-[#0A0A0A] border border-white/10 rounded-2xl p-8 relative overflow-hidden shadow-2xl">
 
-                  {/* Deployment Badge */}
-                  <motion.div 
-                     initial={{ opacity: 0, x: 20 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: 1.5 }}
-                     className="absolute bottom-6 right-6 z-20"
-                  >
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500 text-black text-[10px] font-bold font-mono uppercase tracking-widest rounded shadow-[0_0_20px_rgba(16,185,129,0.6)] animate-pulse">
-                         <CheckCircle2 className="w-3 h-3" />
-                         Deployed: 48 Hours
-                      </div>
-                  </motion.div>
-               </div>
-            </div>
-         </div>
-      </section>
-   );
+            {/* Grid Pattern inside Card */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none"></div>
+
+            {/* Message 1 (The Client Request) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex justify-end mb-8 relative z-10"
+            >
+              <div className="bg-emerald-900/20 border border-emerald-500/30 text-emerald-100 px-5 py-4 rounded-2xl rounded-tr-sm text-sm max-w-sm shadow-[0_0_20px_rgba(16,185,129,0.1)] backdrop-blur-sm">
+                "We need a custom leaderboard that tracks 'Longest Drive' from Trackman and displays it on the lobby TV."
+              </div>
+            </motion.div>
+
+            {/* Message 2 (The System Response) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="flex justify-start mb-8 relative z-10"
+            >
+              <div className="bg-zinc-900 border border-zinc-700 text-zinc-300 px-4 py-2 rounded-full text-xs flex items-center gap-3 shadow-lg">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="font-mono">Ticket #492: <span className="text-white font-bold">In Progress</span></span>
+              </div>
+            </motion.div>
+
+            {/* Code Block (The Solution) */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.0 }}
+              className="bg-black/80 rounded-xl border border-white/10 p-5 font-mono text-[10px] md:text-xs text-zinc-500 overflow-hidden relative z-10 shadow-2xl"
+            >
+              {/* Window Controls */}
+              <div className="flex gap-1.5 mb-4 border-b border-white/5 pb-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/20"></div>
+              </div>
+
+              <div className="space-y-1">
+                <p><span className="text-purple-400">import</span> <span className="text-white">{`{ TrackmanAPI }`}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@venue/sdk'</span>;</p>
+                <p className="h-2"></p>
+                <p><span className="text-blue-400">export const</span> <span className="text-yellow-200">LeaderboardWidget</span> = <span className="text-white">async () ={`>`}</span> {'{'}</p>
+                <p className="pl-4"><span className="text-zinc-500">// Fetch live telemetry</span></p>
+                <p className="pl-4"><span className="text-blue-400">const</span> data = <span className="text-purple-400">await</span> TrackmanAPI.getMetrics('drive_distance');</p>
+                <p className="pl-4"><span className="text-purple-400">return</span> <span className="text-white">{`<LobbyDisplay data={data} />`}</span></p>
+                <p>{'}'}</p>
+              </div>
+            </motion.div>
+
+            {/* Deployment Badge */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.5 }}
+              className="absolute bottom-6 right-6 z-20"
+            >
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500 text-black text-[10px] font-bold font-mono uppercase tracking-widest rounded shadow-[0_0_20px_rgba(16,185,129,0.6)] animate-pulse">
+                <CheckCircle2 className="w-3 h-3" />
+                Deployed: 48 Hours
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 // --- HARDWARE STACK ---
 const HardwareStack = () => {
   return (
     <section className="py-24 bg-black relative border-t border-white/5 overflow-hidden">
-      
+
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
@@ -800,15 +873,15 @@ const HardwareStack = () => {
             </p>
           </div>
           <div className="flex items-center gap-3 px-4 py-2 bg-zinc-900 border border-white/10 rounded-full">
-             <div className="flex gap-1">
-                <span className="w-1 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-                <span className="w-1 h-3 bg-emerald-500/50 rounded-full"></span>
-                <span className="w-1 h-3 bg-emerald-500/20 rounded-full"></span>
-             </div>
-             <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">Systems Connected</span>
+            <div className="flex gap-1">
+              <span className="w-1 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+              <span className="w-1 h-3 bg-emerald-500/50 rounded-full"></span>
+              <span className="w-1 h-3 bg-emerald-500/20 rounded-full"></span>
+            </div>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">Systems Connected</span>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { name: "TRACKMAN", model: "IO / 4", status: "Connected", ping: "12ms" },
@@ -816,7 +889,7 @@ const HardwareStack = () => {
             { name: "FORESIGHT", model: "GCQUAD / HAWK", status: "Standby", ping: "24ms" },
             { name: "FLIGHTSCOPE", model: "X3 / MEVO+", status: "Connected", ping: "31ms" }
           ].map((device, i) => (
-            <motion.div 
+            <motion.div
               key={device.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -828,20 +901,20 @@ const HardwareStack = () => {
               <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 translate-y-[-100%] group-hover:translate-y-[100%] transition-transform duration-1000"></div>
 
               <div className="flex justify-between items-start mb-8">
-                 <div className="flex flex-col">
-                    <span className="text-xl font-bold font-mono text-zinc-200 tracking-tighter">{device.name}</span>
-                    <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono mt-1">Series: {device.model}</span>
-                 </div>
-                 {/* Status Light */}
-                 <div className={`w-2 h-2 rounded-full ${device.status === 'Connected' ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-amber-500 shadow-[0_0_10px_#f59e0b]'} animate-pulse`}></div>
+                <div className="flex flex-col">
+                  <span className="text-xl font-bold font-mono text-zinc-200 tracking-tighter">{device.name}</span>
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono mt-1">Series: {device.model}</span>
+                </div>
+                {/* Status Light */}
+                <div className={`w-2 h-2 rounded-full ${device.status === 'Connected' ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-amber-500 shadow-[0_0_10px_#f59e0b]'} animate-pulse`}></div>
               </div>
 
               <div className="flex items-end justify-between border-t border-white/5 pt-4">
-                 <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono uppercase">
-                    <Activity className="w-3 h-3" />
-                    <span>Stream: {device.status === 'Connected' ? 'OK' : 'WAIT'}</span>
-                 </div>
-                 <span className="text-[10px] font-mono text-emerald-500/70">{device.ping}</span>
+                <div className="flex items-center gap-2 text-[10px] text-zinc-500 font-mono uppercase">
+                  <Activity className="w-3 h-3" />
+                  <span>Stream: {device.status === 'Connected' ? 'OK' : 'WAIT'}</span>
+                </div>
+                <span className="text-[10px] font-mono text-emerald-500/70">{device.ping}</span>
               </div>
             </motion.div>
           ))}
@@ -849,7 +922,7 @@ const HardwareStack = () => {
 
         {/* Bottom "Cable" Visual */}
         <div className="mt-12 flex justify-center opacity-30">
-           <div className="w-px h-12 bg-gradient-to-b from-emerald-500 via-emerald-500/50 to-transparent"></div>
+          <div className="w-px h-12 bg-gradient-to-b from-emerald-500 via-emerald-500/50 to-transparent"></div>
         </div>
       </div>
     </section>
@@ -867,105 +940,105 @@ export default function LandingPage() {
       />
       <div className="noise-bg fixed inset-0 z-50 pointer-events-none opacity-[0.03]"></div>
       <MouseSpotlight />
-      
+
       {/* NAVBAR */}
       <nav className="fixed w-full z-40 top-0 border-b border-white/5 bg-[#020202]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-           <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-zinc-100 text-black flex items-center justify-center font-serif font-bold rounded-sm">V</div>
-              <span className="font-serif text-lg tracking-tight text-white">Venue Engine</span>
-           </div>
-           <Link href="/partner" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Partner Access
-              <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-           </Link>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-zinc-100 text-black flex items-center justify-center font-serif font-bold rounded-sm">V</div>
+            <span className="font-serif text-lg tracking-tight text-white">Venue Engine</span>
+          </div>
+          <Link href="/partner" className="flex items-center gap-2 px-3 md:px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-white/10 rounded-sm transition-all text-[10px] font-bold font-mono uppercase tracking-widest group">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Partner Access
+            <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </nav>
 
       <HeroSection />
-      
+
       {/* REPLACED: Ticker with Orbital System */}
       <IntegrationSection />
 
       {/* THE PROBLEM */}
       <section className="py-16 md:py-32 px-6 relative border-b border-white/5 bg-[#050505]">
-         <div className="max-w-5xl mx-auto mb-16 text-center">
-            <div className="inline-block mb-4 px-3 py-1 border border-red-500/20 bg-red-900/10 rounded-full text-[10px] font-mono text-red-400 uppercase tracking-widest animate-pulse">
-               Financial Alert
-            </div>
-            <h2 className="text-3xl md:text-5xl font-serif mb-6 text-white">The "Empty Bay" Hemorrhage.</h2>
-            <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest max-w-lg mx-auto leading-loose">
-               You are losing $150/hr every time a customer "forgets" to show up. <br className="hidden md:block"/>
-               Drag the slider to enable the Venue Engine protocols.
-            </p>
-         </div>
-         <ComparisonSlider />
+        <div className="max-w-5xl mx-auto mb-16 text-center">
+          <div className="inline-block mb-4 px-3 py-1 border border-red-500/20 bg-red-900/10 rounded-full text-[10px] font-mono text-red-400 uppercase tracking-widest animate-pulse">
+            Financial Alert
+          </div>
+          <h2 className="text-3xl md:text-5xl font-serif mb-6 text-white">The "Empty Bay" Hemorrhage.</h2>
+          <p className="text-zinc-400 font-mono text-xs uppercase tracking-widest max-w-lg mx-auto leading-loose">
+            You are losing $150/hr every time a customer "forgets" to show up. <br className="hidden md:block" />
+            Drag the slider to enable the Venue Engine protocols.
+          </p>
+        </div>
+        <ComparisonSlider />
       </section>
 
       {/* THE SOLUTION */}
       <section className="py-16 md:py-32 px-6 relative z-10">
-         <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
-               <div>
-                  <h2 className="text-3xl md:text-6xl font-serif text-white mb-4">The Revenue Core</h2>
-                  <p className="text-zinc-500 font-mono text-xs uppercase tracking-widest">Four Engines. Zero Leakage.</p>
-               </div>
-               <div className="flex gap-4">
-                  <div className="text-right">
-                     <div className="text-xl md:text-2xl font-mono text-emerald-400">99.9%</div>
-                     <div className="text-[10px] text-zinc-600 uppercase tracking-widest">Uptime</div>
-                  </div>
-                  <div className="w-[1px] h-10 bg-white/10"></div>
-                  <div className="text-right">
-                     <div className="text-xl md:text-2xl font-mono text-white">24ms</div>
-                     <div className="text-[10px] text-zinc-600 uppercase tracking-widest">Latency</div>
-                  </div>
-               </div>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
+            <div>
+              <h2 className="text-3xl md:text-6xl font-serif text-white mb-4">The Revenue Core</h2>
+              <p className="text-zinc-500 font-mono text-xs uppercase tracking-widest">Four Engines. Zero Leakage.</p>
             </div>
+            <div className="flex gap-4">
+              <div className="text-right">
+                <div className="text-xl md:text-2xl font-mono text-emerald-400">99.9%</div>
+                <div className="text-[10px] text-zinc-600 uppercase tracking-widest">Uptime</div>
+              </div>
+              <div className="w-[1px] h-10 bg-white/10"></div>
+              <div className="text-right">
+                <div className="text-xl md:text-2xl font-mono text-white">24ms</div>
+                <div className="text-[10px] text-zinc-600 uppercase tracking-widest">Latency</div>
+              </div>
+            </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-               <div className="md:col-span-8">
-                  <FeatureCard 
-                     highlight={true}
-                     delay={0.1}
-                     icon={<Mic className="w-6 h-6" />}
-                     title="Neural Voice Agent"
-                     badge="Write-Access Enabled"
-                     desc="A 24/7 AI Receptionist that negotiates times, answers FAQs, and can physically book slots in your database. It handles 10,000 simultaneous calls."
-                  />
-               </div>
-               <div className="md:col-span-4">
-                  <FeatureCard 
-                     delay={0.2}
-                     icon={<BarChart3 className="w-6 h-6" />}
-                     title="Yield Engine"
-                     badge="Dynamic Pricing"
-                     desc="Raining? The system automatically increases ad spend for 'Indoor Golf'. Efficiency is automated."
-                     metric="+15% Margin"
-                  />
-               </div>
-               <div className="md:col-span-4">
-                  <FeatureCard 
-                     delay={0.3}
-                     icon={<Shield className="w-6 h-6" />}
-                     title="Ghost Protocol"
-                     badge="Payment Security"
-                     desc="No deposit? No booking. We auto-cancel unpaid slots after 15 minutes to free inventory."
-                     metric="0% No-Shows"
-                  />
-               </div>
-               <div className="md:col-span-8">
-                  <FeatureCard 
-                     delay={0.4}
-                     icon={<Zap className="w-6 h-6" />}
-                     title="Flash-Fill Protocol"
-                     badge="n8n Automation"
-                     desc="When a slot opens, our n8n engine filters your waitlist by 'LTV' and texts a booking link. Slots refill in < 3 minutes."
-                  />
-               </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div className="md:col-span-8">
+              <FeatureCard
+                highlight={true}
+                delay={0.1}
+                icon={<Mic className="w-6 h-6" />}
+                title="Neural Voice Agent"
+                badge="Write-Access Enabled"
+                desc="A 24/7 AI Receptionist that negotiates times, answers FAQs, and can physically book slots in your database. It handles 10,000 simultaneous calls."
+              />
             </div>
-         </div>
+            <div className="md:col-span-4">
+              <FeatureCard
+                delay={0.2}
+                icon={<BarChart3 className="w-6 h-6" />}
+                title="Yield Engine"
+                badge="Dynamic Pricing"
+                desc="Raining? The system automatically increases ad spend for 'Indoor Golf'. Efficiency is automated."
+                metric="+15% Margin"
+              />
+            </div>
+            <div className="md:col-span-4">
+              <FeatureCard
+                delay={0.3}
+                icon={<Shield className="w-6 h-6" />}
+                title="Ghost Protocol"
+                badge="Payment Security"
+                desc="No deposit? No booking. We auto-cancel unpaid slots after 15 minutes to free inventory."
+                metric="0% No-Shows"
+              />
+            </div>
+            <div className="md:col-span-8">
+              <FeatureCard
+                delay={0.4}
+                icon={<Zap className="w-6 h-6" />}
+                title="Flash-Fill Protocol"
+                badge="n8n Automation"
+                desc="When a slot opens, our n8n engine filters your waitlist by 'LTV' and texts a booking link. Slots refill in < 3 minutes."
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       <HardwareStack />
@@ -977,45 +1050,45 @@ export default function LandingPage() {
 
       {/* FOUNDER'S GUARANTEE */}
       <section className="py-24 md:py-40 px-6 relative overflow-hidden bg-black">
-         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-900 to-transparent"></div>
-         <div className="max-w-4xl mx-auto relative z-10 text-center">
-             <div className="inline-block border border-zinc-800 bg-zinc-900/50 backdrop-blur px-4 py-1 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-8">
-                The Architect's Promise
-             </div>
-             <h2 className="text-3xl md:text-7xl font-serif text-white mb-8 tracking-tighter">
-                We don't sell software. <br/> <span className="text-zinc-600">We sell revenue.</span>
-             </h2>
-             <p className="text-base md:text-lg text-zinc-400 mb-12 max-w-xl mx-auto font-light leading-relaxed">
-                If Venue Engine does not recover at least <strong>$2,500 in "Ghost Revenue"</strong> (prevented no-shows & automated bookings) within your first 30 days, I will refund your entire implementation fee.
-             </p>
-             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center">
-                <Link href="/partner" className="group relative h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
-                   <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                   <span className="relative z-10 flex items-center gap-2">
-                      Initialize Audit 
-                      <ArrowRight className="w-4 h-4" />
-                   </span>
-                </Link>
-                
-                <Link href="/demo" className="h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
-                   <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" /> 
-                   View Live Demo
-                </Link>
-            </div>
-         </div>
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-900 to-transparent"></div>
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <div className="inline-block border border-zinc-800 bg-zinc-900/50 backdrop-blur px-4 py-1 rounded-full text-[10px] font-mono uppercase text-zinc-400 mb-8">
+            The Architect's Promise
+          </div>
+          <h2 className="text-3xl md:text-7xl font-serif text-white mb-8 tracking-tighter">
+            We don't sell software. <br /> <span className="text-zinc-600">We sell revenue.</span>
+          </h2>
+          <p className="text-base md:text-lg text-zinc-400 mb-12 max-w-xl mx-auto font-light leading-relaxed">
+            If Venue Engine does not recover at least <strong>$2,500 in "Ghost Revenue"</strong> (prevented no-shows & automated bookings) within your first 30 days, I will refund your entire implementation fee.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center">
+            <Link href="/partner" className="group relative h-14 px-8 bg-white text-black font-mono text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-3 overflow-hidden rounded-sm transition-all hover:bg-emerald-400 w-full sm:w-auto">
+              <div className="absolute inset-0 w-full h-full bg-emerald-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              <span className="relative z-10 flex items-center gap-2">
+                Initialize Audit
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </Link>
+
+            <Link href="/demo" className="h-14 px-8 bg-zinc-900 border border-zinc-800 hover:border-white/20 text-zinc-300 font-mono text-xs uppercase tracking-widest font-bold transition-all rounded-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
+              <Play className="w-3 h-3 group-hover:text-emerald-500 transition-colors" />
+              View Live Demo
+            </Link>
+          </div>
+        </div>
       </section>
 
       <footer className="py-8 md:py-12 border-t border-white/5 bg-black text-center relative z-10">
-         <div className="flex flex-col items-center gap-4">
-            <p className="text-[10px] text-zinc-600 font-mono uppercase tracking-widest">
-               © 2025 Venue Engine • Global Operations
-            </p>
-            <div className="flex gap-4 text-[10px] text-zinc-700 font-mono uppercase">
-               <span>System Status: Nominal</span>
-               <span>•</span>
-               <span>Privacy Protocol</span>
-            </div>
-         </div>
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-[10px] text-zinc-600 font-mono uppercase tracking-widest">
+            © 2025 Venue Engine • Global Operations
+          </p>
+          <div className="flex gap-4 text-[10px] text-zinc-700 font-mono uppercase">
+            <span>System Status: Nominal</span>
+            <span>•</span>
+            <span>Privacy Protocol</span>
+          </div>
+        </div>
       </footer>
     </main>
   );
