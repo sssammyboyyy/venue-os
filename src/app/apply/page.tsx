@@ -44,7 +44,7 @@ export default function ApplyPage() {
 
             {/* --- VSL CONTAINER --- */}
             <section className="w-full px-6 mb-16 z-10">
-                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-sm overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
+                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300">
                     <img
                         src="/vsl-thumbnail.png"
                         alt="Watch: Restore your sanity - The Anti-Ghosting Engine"
