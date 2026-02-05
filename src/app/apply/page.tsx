@@ -70,9 +70,11 @@ export default function ApplyPage() {
                         {/* First + Last Name */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="relative pt-4">
-                                <label className="text-xs font-bold uppercase tracking-widest text-stone-500">First Name</label>
+                                <label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-stone-500">First Name</label>
                                 <input
+                                    id="firstName"
                                     name="firstName"
+                                    autoComplete="given-name"
                                     required
                                     className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
                                     placeholder="Jane"
@@ -80,9 +82,11 @@ export default function ApplyPage() {
                                 {state?.errors?.firstName && <p className="text-sm text-red-500 mt-2">{state.errors.firstName[0]}</p>}
                             </div>
                             <div className="relative pt-4">
-                                <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Last Name</label>
+                                <label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-stone-500">Last Name</label>
                                 <input
+                                    id="lastName"
                                     name="lastName"
+                                    autoComplete="family-name"
                                     required
                                     className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
                                     placeholder="Doe"
@@ -93,9 +97,11 @@ export default function ApplyPage() {
 
                         {/* Venue Name */}
                         <div className="relative pt-4">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Venue Name</label>
+                            <label htmlFor="venueName" className="text-xs font-bold uppercase tracking-widest text-stone-500">Venue Name</label>
                             <input
+                                id="venueName"
                                 name="venueName"
+                                autoComplete="organization"
                                 required
                                 className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
                                 placeholder="The Barn at..."
@@ -105,10 +111,12 @@ export default function ApplyPage() {
 
                         {/* Email */}
                         <div className="relative pt-4">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Email Address</label>
+                            <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-stone-500">Email Address</label>
                             <input
+                                id="email"
                                 name="email"
                                 type="email"
+                                autoComplete="email"
                                 required
                                 className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
                                 placeholder="owner@venue.com"
@@ -118,9 +126,11 @@ export default function ApplyPage() {
 
                         {/* Annual Weddings */}
                         <div className="relative pt-4">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Annual Weddings</label>
+                            <label htmlFor="annualWeddings" className="text-xs font-bold uppercase tracking-widest text-stone-500">Annual Weddings</label>
                             <select
+                                id="annualWeddings"
                                 name="annualWeddings"
+                                autoComplete="off"
                                 required
                                 defaultValue=""
                                 className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif appearance-none cursor-pointer"
@@ -135,9 +145,11 @@ export default function ApplyPage() {
 
                         {/* Pain Point */}
                         <div className="relative pt-4">
-                            <label className="text-xs font-bold uppercase tracking-widest text-stone-500">Primary Challenge</label>
+                            <label htmlFor="painPoint" className="text-xs font-bold uppercase tracking-widest text-stone-500">Primary Challenge</label>
                             <select
+                                id="painPoint"
                                 name="painPoint"
+                                autoComplete="off"
                                 required
                                 defaultValue=""
                                 className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif appearance-none cursor-pointer"
