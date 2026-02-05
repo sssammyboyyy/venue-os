@@ -44,10 +44,12 @@ export default function ApplyPage() {
 
             {/* --- VSL CONTAINER --- */}
             <section className="w-full px-6 mb-16 z-10">
-                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-200 rounded-sm overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
-                    <div className="absolute inset-0 flex items-center justify-center text-stone-400 font-serif italic text-xl">
-                        Video Placeholder (Wistia/Vimeo)
-                    </div>
+                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-sm overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
+                    <img
+                        src="/vsl-thumbnail.png"
+                        alt="Watch: Restore your sanity - The Anti-Ghosting Engine"
+                        className="w-full h-full object-cover"
+                    />
                 </div>
             </section>
 
