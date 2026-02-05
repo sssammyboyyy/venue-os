@@ -51,6 +51,15 @@ export async function submitApplication(prevState: any, formData: FormData) {
         status: 'new'
     })
 
+    // Handle DB errors
+    if (error) {
+        console.error('Database error:', error)
+        return {
+            errors: {},
+            message: 'Something went wrong. Please try again.',
+        }
+    }
+
     // Logic Gate
     if (annualWeddings === '20+' || annualWeddings === '50+') {
         redirect('/schedule')
