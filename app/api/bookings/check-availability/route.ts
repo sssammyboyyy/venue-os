@@ -1,0 +1,66 @@
+import { createClient } from "@/lib/supabase/server"
+import { type NextRequest, NextResponse } from "next/server"
+
+// 1. Force Edge Runtime
+export const runtime = 'edge';
+
+// Helper to match the rest of your app's logic
+function createSASTTimestamp(dateStr: string, timeStr: string): string {
+  const cleanTime = timeStr.length === 5 ? `${timeStr}:00` : timeStr;
+  return `${dateStr}T${cleanTime}+02:00`;
+}
+
+function addHoursToTimestamp(timestamp: string, hours: number): string {
+  const date = new Date(timestamp);
+  date.setHours(date.getHours() + hours);
+  return date.toISOString(); 
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const supabase = await createClient()
+    const { booking_date, start_time, duration_hours } = await request.json()
+
+    // 1. Calculate Exact ISO Timestamps (Consistency is key!)
+    const requestedStartISO = createSASTTimestamp(booking_date, start_time);
+    const requestedEndISO = addHoursToTimestamp(requestedStartISO, duration_hours);
+
+    // 2. Fetch Active Bookings for that day
+    const { data: bookings, error } = await supabase
+      .from("bookings")
+      .select("slot_start, slot_end") // Only fetch what we need
+      .eq("booking_date", booking_date)
+      .neq("status", "cancelled")
+
+    if (error) {
+       console.error("Availability Check DB Error:", error);
+       return NextResponse.json({ error: "Database check failed" }, { status: 500 });
+    }
+
+    // 3. Count Overlaps in JavaScript (Precise & Fast)
+    // A booking overlaps if: (StartA < EndB) and (EndA > StartB)
+    let overlapCount = 0;
+    
+    if (bookings) {
+      bookings.forEach(b => {
+        if (b.slot_start < requestedEndISO && b.slot_end > requestedStartISO) {
+          overlapCount++;
+        }
+      });
+    }
+
+    // 4. Compare against Capacity
+    const TOTAL_BAYS = 3
+    const isAvailable = overlapCount < TOTAL_BAYS
+
+    return NextResponse.json({
+      available: isAvailable,
+      conflicting_bookings: overlapCount,
+      capacity: TOTAL_BAYS
+    })
+
+  } catch (error) {
+    console.error("Availability Check Server Error:", error)
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  }
+}
