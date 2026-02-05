@@ -46,7 +46,7 @@ export default function ApplyPage() {
             <section className="w-full px-6 mb-16 z-10">
                 <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300">
                     <img
-                        src="/vsl-thumbnail.png"
+                        src="/vsl-thumbnail-v2.png"
                         alt="Watch: Restore your sanity - The Anti-Ghosting Engine"
                         className="w-full h-full object-cover"
                     />
