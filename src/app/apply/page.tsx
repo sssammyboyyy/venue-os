@@ -1,14 +1,9 @@
 'use client'
 
-import { useActionState } from 'react'
-import { submitApplication } from '../actions/submit-application'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-const initialState: State = {
-    message: '',
-    errors: {}
-}
-
-interface State {
+interface FormState {
     errors?: {
         venueName?: string[]
         firstName?: string[]
@@ -21,7 +16,44 @@ interface State {
 }
 
 export default function ApplyPage() {
-    const [state, formAction] = useActionState(submitApplication, initialState)
+    const router = useRouter()
+    const [state, setState] = useState<FormState>({ message: '', errors: {} })
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setIsSubmitting(true)
+        setState({ message: '', errors: {} })
+
+        const formData = new FormData(e.currentTarget)
+
+        try {
+            const response = await fetch('/api/submit', {
+                method: 'POST',
+                body: formData,
+            })
+
+            const result = await response.json()
+
+            if (!response.ok) {
+                setState({
+                    errors: result.errors || {},
+                    message: result.message || 'Something went wrong.',
+                })
+                setIsSubmitting(false)
+                return
+            }
+
+            if (result.redirect) {
+                router.push(result.redirect)
+            }
+        } catch (error) {
+            setState({
+                message: 'Network error. Please try again.',
+            })
+            setIsSubmitting(false)
+        }
+    }
 
     return (
         <main className="min-h-screen relative flex flex-col items-center font-sans">
@@ -60,7 +92,7 @@ export default function ApplyPage() {
 
                     <h3 className="font-serif text-3xl md:text-4xl text-stone-800 mb-10 text-center">Request Access</h3>
 
-                    <form action={formAction} className="space-y-8">
+                    <form onSubmit={handleSubmit} className="space-y-8">
                         {state?.message && (
                             <div className="p-4 bg-red-50 text-red-700 text-base border border-red-200 mb-4 text-center rounded-sm">
                                 {state.message}
@@ -164,9 +196,10 @@ export default function ApplyPage() {
 
                         <button
                             type="submit"
-                            className="w-full bg-stone-900 text-stone-50 py-5 uppercase tracking-widest font-medium text-sm hover:bg-stone-800 transition-all active:scale-[0.99] mt-10 flex items-center justify-center gap-2"
+                            disabled={isSubmitting}
+                            className="w-full bg-stone-900 text-stone-50 py-5 uppercase tracking-widest font-medium text-sm hover:bg-stone-800 transition-all active:scale-[0.99] mt-10 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Submit Application
+                            {isSubmitting ? 'Submitting...' : 'Submit Application'}
                         </button>
 
                         <p className="text-center text-sm text-stone-400 pt-4">
