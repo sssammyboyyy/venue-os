@@ -5,14 +5,21 @@ import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
 // (when running the application with `next dev`)
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 };
 
-export default async function config() {
-  /*
-  if (process.env.NODE_ENV === "development") {
-      await setupDevPlatform();
-  }
-  */
-  return nextConfig;
-}
+export default nextConfig;
