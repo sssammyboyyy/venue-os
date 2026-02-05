@@ -33,7 +33,7 @@ export default function ApplyPage() {
                 </span>
 
                 <h1 className="font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-6 tracking-tight">
-                    Restore your <span className="italic text-stone-500 font-light">sanity.</span>
+                    Restore your <span className="italic text-amber-700 font-light">sanity.</span>
                 </h1>
 
                 <p className="max-w-2xl text-lg md:text-xl text-stone-600 font-light leading-relaxed">
