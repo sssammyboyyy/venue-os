@@ -38,7 +38,7 @@ export default function ApplyPage() {
             if (!response.ok) {
                 setState({
                     errors: result.errors || {},
-                    message: result.message || 'Something went wrong.',
+                    message: result.message + (result.step ? ` [${result.step}]` : '') + (result.code ? ` (${result.code})` : ''),
                 })
                 setIsSubmitting(false)
                 return
