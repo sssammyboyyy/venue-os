@@ -52,22 +52,15 @@ export default function HomePage() {
                 VSL CONTAINER - "Restoration Hardware" Style
             ═══════════════════════════════════════════════════════════════ */}
       <div className="w-full max-w-5xl mx-auto -mt-4 px-4 z-20 relative mb-24">
-        <div className="aspect-video bg-stone-100 rounded-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-white ring-1 ring-stone-200 overflow-hidden relative group cursor-pointer">
-          {/* Thumbnail */}
-          <img
-            src="/vsl-thumbnail-v2.png"
-            alt="Watch: The Invisible Employee in action"
-            className="w-full h-full object-cover"
+        <div className="aspect-video bg-stone-100 rounded-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-white ring-1 ring-stone-200 overflow-hidden relative">
+          <iframe
+            src="https://www.youtube.com/embed/MngcmTzWzeQ?rel=0&modestbranding=1"
+            title="Watch: The Invisible Employee in action"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+            style={{ border: 'none' }}
           />
-          {/* Minimalist Play Button */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
-            <div className="w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
-              <div className="ml-1 w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-stone-900 border-b-[10px] border-b-transparent" />
-            </div>
-          </div>
-          <div className="absolute bottom-6 left-6 text-white font-serif text-xl md:text-2xl drop-shadow-lg">
-            Watch the "Invisible Employee" in action.
-          </div>
         </div>
       </div>
 
