@@ -1,9 +1,22 @@
+'use client'
+
 import Link from 'next/link'
+import { SMSProof } from '@/components/ui/sms-proof'
+import Cal, { getCalApi } from "@calcom/embed-react";
+import { useEffect } from "react";
 
 export default function HomePage() {
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({});
+      cal("ui", { "styles": { "branding": { "brandColor": "#000000" } }, "hideEventTypeDetails": false, "layout": "month_view" });
+    })();
+  }, []);
+
   return (
-    <main className="min-h-screen bg-stone-50 relative">
-      {/* CSS Noise Overlay for tactile "Cardstock" feel */}
+    <main className="min-h-screen bg-stone-50 relative font-sans text-stone-900">
+      {/* CSS Noise Overlay */}
       <div
         className="fixed inset-0 opacity-[0.03] pointer-events-none z-50 mix-blend-multiply"
         style={{
@@ -12,139 +25,128 @@ export default function HomePage() {
       />
 
       {/* ═══════════════════════════════════════════════════════════════
-                HERO SECTION - "Aman" Typography + "Basecamp" Copy
+                HERO SECTION
             ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative flex flex-col items-center pt-32 pb-20 px-6 text-center overflow-hidden">
-        {/* Badge */}
-        <div className="z-10 mb-8 px-4 py-2 border border-stone-200 rounded-full bg-white shadow-sm">
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-stone-400">
-            Private Beta • Independent Venues Only
-          </span>
-        </div>
+      <section className="relative flex flex-col items-center pt-24 md:pt-32 pb-16 px-6 text-center z-10 w-full max-w-5xl mx-auto">
 
-        {/* Main Headline */}
-        <h1 className="z-10 font-serif text-6xl md:text-8xl text-stone-900 leading-[1.1] mb-8 tracking-tight max-w-5xl">
-          Stop <span className="text-amber-700">The Knot</span> from burning your budget.
+        {/* Headline */}
+        <h1 className="z-10 font-serif text-5xl md:text-7xl leading-[1.1] mb-8 tracking-tight max-w-4xl mx-auto">
+          Stop Losing <span className="text-amber-700 italic">$3,000–$5,000</span> Wedding Deposits to Slow Email Replies.
         </h1>
 
-        {/* Subheadline */}
-        <p className="z-10 max-w-2xl text-xl text-stone-600 leading-relaxed font-sans">
-          The <span className="font-semibold text-stone-800">"Anti-Ghosting Patch"</span> that manages your leads while you sleep.
-          <br className="hidden md:block" /> No login required. Works with your existing email.
-        </p>
+        {/* Subhead */}
+        <div className="z-10 max-w-2xl mx-auto space-y-2 mb-10">
+          <p className="text-xl md:text-2xl text-stone-900 leading-snug font-medium">
+            Venues replying within 5 minutes book 3x more tours.
+          </p>
+          <p className="text-sm md:text-base text-stone-500">
+            Based on reply-time analysis across 127+ independent venues.
+          </p>
+          <p className="text-lg md:text-xl text-stone-800 font-semibold pt-2">
+            Venue Engine replies in 14 seconds — automatically.
+          </p>
+        </div>
 
-        {/* CTA */}
-        <div className="z-10 mt-12 flex flex-col sm:flex-row gap-4 items-center">
+        {/* CTAs */}
+        <div className="z-10 w-full max-w-md md:max-w-none flex flex-col md:flex-row gap-4 items-center justify-center">
+          {/* Primary */}
+          <div className="flex flex-col items-center gap-3 w-full md:w-auto">
+            <Link
+              href="#calendar"
+              className="w-full md:w-auto h-16 px-8 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-xl rounded-sm flex items-center justify-center transition-all hover:scale-[1.02]"
+            >
+              Book Your 15-Min Audit
+            </Link>
+            <span className="text-xs text-stone-400 font-medium">
+              No sales pitch. Just data on where you're losing bookings.
+            </span>
+          </div>
+
+          {/* Secondary */}
           <Link
-            href="/apply"
-            className="h-16 px-10 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-2xl rounded-sm flex items-center justify-center transition-colors"
+            href="#how-it-works"
+            className="w-full md:w-auto h-16 px-8 bg-white border border-stone-200 text-stone-900 text-lg uppercase tracking-widest hover:bg-stone-50 hover:border-stone-300 shadow-sm rounded-sm flex items-center justify-center transition-all"
           >
-            Apply for Access
+            See How It Works
           </Link>
-          <div className="flex items-center justify-center gap-2 text-sm text-stone-500 font-medium">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            3 spots left for March
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+                 VISUAL PROOF SECTION
+             ═══════════════════════════════════════════════════════════════ */}
+      <section className="w-full max-w-5xl mx-auto -mt-4 px-6 z-20 relative mb-24">
+        <SMSProof />
+
+        {/* Stats Below Proof */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-8 text-sm font-mono text-stone-500 uppercase tracking-widest bg-white/50 backdrop-blur-sm py-4 rounded-full border border-stone-100 max-w-2xl mx-auto shadow-sm">
+          <div className="flex items-center gap-2">
+            <span className="opacity-50">Before:</span>
+            <span className="text-stone-400 line-through decoration-red-400/50">Avg reply 2h 17m</span>
+          </div>
+          <div className="hidden md:block w-px h-4 bg-stone-300"></div>
+          <div className="flex items-center gap-2">
+            <span className="text-amber-700 font-bold">After:</span>
+            <span className="text-stone-900 font-bold bg-green-100 px-2 py-0.5 rounded-sm">Avg reply 18s</span>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-                VSL CONTAINER - "Restoration Hardware" Style
+                VIDEO SECTION
             ═══════════════════════════════════════════════════════════════ */}
-      <div className="w-full max-w-5xl mx-auto -mt-4 px-4 z-20 relative mb-24">
-        <div className="aspect-video bg-stone-100 rounded-sm shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-white ring-1 ring-stone-200 overflow-hidden relative">
+      <section id="how-it-works" className="w-full px-6 mb-24 z-10 scroll-mt-32">
+        <div className="max-w-4xl mx-auto text-center mb-6">
+          <h3 className="font-serif text-2xl text-stone-900">How It Works (90 Seconds)</h3>
+        </div>
+
+        <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-sm overflow-hidden shadow-2xl border border-stone-300">
           <iframe
             src="https://www.youtube.com/embed/MngcmTzWzeQ?rel=0&modestbranding=1"
-            title="Watch: The Invisible Employee in action"
+            title="Watch: Venue Engine Demo"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="absolute inset-0 w-full h-full"
             style={{ border: 'none' }}
           />
         </div>
-      </div>
 
-      {/* ═══════════════════════════════════════════════════════════════
-                FEATURE COMPARISON - "Hey.com" Before/After Grid
-            ═══════════════════════════════════════════════════════════════ */}
-      <section className="py-24 bg-white border-y border-stone-100">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="font-serif text-4xl md:text-5xl text-stone-900 text-center mb-16">
-            The <span className="italic font-light">difference</span> is automatic.
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            {/* The Villain (Old Way) */}
-            <div className="opacity-60 grayscale">
-              <h3 className="font-serif text-2xl mb-4 text-stone-400 italic">The Old Way</h3>
-              <div className="p-8 border border-stone-200 rounded-sm bg-stone-50">
-                <div className="text-stone-400 text-sm mb-2">📩 New Inquiry from The Knot</div>
-                <div className="text-stone-900 font-bold text-lg mb-4">You reply 4 hours later...</div>
-                <div className="text-red-400 font-medium">Result: They ghosted you.</div>
-                <div className="mt-6 pt-6 border-t border-stone-200">
-                  <div className="text-stone-400 text-sm">Average response time:</div>
-                  <div className="text-2xl font-bold text-stone-500">4+ hours</div>
-                </div>
-              </div>
-            </div>
-
-            {/* The Hero (VenueEngine Way) */}
-            <div className="relative transform md:-translate-x-4 md:scale-105 shadow-2xl rounded-sm bg-stone-50 border border-amber-900/10 p-8">
-              <div className="absolute -top-4 -right-4 bg-amber-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-sm">
-                Automated
-              </div>
-              <h3 className="font-serif text-2xl mb-4 text-stone-900">The VenueEngine Way</h3>
-              <div className="space-y-4">
-                <div className="flex gap-3 items-center">
-                  <div className="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center text-xs flex-shrink-0">🤵</div>
-                  <div className="bg-white p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl shadow-sm text-sm text-stone-600">
-                    New Lead received at 3:00 AM.
-                  </div>
-                </div>
-                <div className="flex gap-3 items-center justify-end">
-                  <div className="bg-stone-900 text-white p-3 rounded-tl-xl rounded-bl-xl rounded-br-xl shadow-md text-sm">
-                    Hi Sarah! Saw your inquiry. We have that date open! Want the brochure?
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-amber-700 flex items-center justify-center text-xs text-white flex-shrink-0 font-bold">VE</div>
-                </div>
-                <div className="text-center text-xs text-stone-400 pt-2 uppercase tracking-widest">
-                  Response time: 14 seconds
-                </div>
-              </div>
-              <div className="mt-6 pt-6 border-t border-stone-200">
-                <div className="text-stone-500 text-sm">Result:</div>
-                <div className="text-2xl font-bold text-amber-700">+$12,000 booked</div>
-              </div>
-            </div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mt-8 text-stone-600 font-medium text-sm md:text-base">
+          <div className="flex items-center gap-2">
+            <span className="text-green-600">✓</span> Built for independent venues
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-green-600">✓</span> Works with your existing inbox
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-green-600">✓</span> No new software to learn
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-                BOTTOM CTA - The Ledger
-            ═══════════════════════════════════════════════════════════════ */}
-      <section className="py-32 px-6 text-center">
-        <h2 className="font-serif text-4xl md:text-6xl text-stone-900 mb-6 tracking-tight">
-          Restore your <span className="italic text-amber-700 font-light">sanity.</span>
+                 CALENDAR SECTION
+             ═══════════════════════════════════════════════════════════════ */}
+      <section id="calendar" className="py-24 px-6 text-center z-10 w-full bg-white border-t border-stone-100">
+        <h2 className="font-serif text-3xl md:text-5xl text-stone-900 mb-4 tracking-tight">
+          See exactly how many tours you're losing to slow replies.
         </h2>
-        <p className="max-w-xl mx-auto text-lg text-stone-600 mb-10">
-          Join the private beta. No software to learn. No dashboard to check. Just relief.
-        </p>
-        <Link
-          href="/apply"
-          className="inline-flex h-16 px-12 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-2xl rounded-sm items-center justify-center transition-colors"
-        >
-          Request Access
-        </Link>
-        <p className="mt-6 text-sm text-stone-400">
-          Limited spots available for Q1 2026.
-        </p>
+        <p className="text-stone-500 mb-12">No sales pitch. Just data.</p>
+
+        <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-xl shadow-inner overflow-hidden border border-stone-200 min-h-[600px]">
+          <Cal
+            namespace="audit"
+            calLink="venue-engine/audit"
+            style={{ width: "100%", height: "100%", overflow: "scroll" }}
+            config={{ "layout": "month_view" }}
+          />
+        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
                 FOOTER
             ═══════════════════════════════════════════════════════════════ */}
-      <footer className="py-12 px-6 border-t border-stone-200 bg-white">
+      <footer className="py-12 px-6 border-t border-stone-200 bg-stone-50">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="font-serif text-xl text-stone-900">VenueEngine</div>
           <div className="text-sm text-stone-400">
