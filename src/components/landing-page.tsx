@@ -111,7 +111,7 @@ export default function LandingPage() {
                     <div className="flex-1 text-center md:text-right space-y-2">
                         <div className="text-sm text-muted mb-1 uppercase tracking-widest font-bold">At $4,000 Average Deposit</div>
                         <div className="text-5xl md:text-6xl font-serif text-primary tracking-tighter">$32,000</div>
-                        <div className="text-xs uppercase tracking-widest text-[#B87333] font-bold">Lost Revenue / Month</div>
+                        <div className="text-xs uppercase tracking-widest text-destructive font-bold">Lost Revenue / Month</div>
                         <p className="text-sm text-primary font-bold mt-4 pt-4 border-t border-border/50">
                             That’s what 14-second replies recover.
                         </p>
