@@ -25,69 +25,96 @@ export default function LandingPage() {
             />
 
             {/* ═══════════════════════════════════════════════════════════════
-                HERO SECTION
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="relative flex flex-col items-center pt-24 md:pt-32 pb-16 px-6 text-center z-10 w-full max-w-5xl mx-auto">
+                 HERO SECTION V2 - "Lethal" Conversion Architecture
+             ═══════════════════════════════════════════════════════════════ */}
+            <section className="relative pt-16 pb-16 px-6 z-10 w-full max-w-[1440px] mx-auto flex flex-col md:flex-row items-center gap-8 lg:gap-12 min-h-[600px] md:min-h-[auto] max-h-[85vh]">
 
-                {/* Headline */}
-                <h1 className="z-10 font-serif text-5xl md:text-7xl leading-[1.1] mb-8 tracking-tight max-w-4xl mx-auto">
-                    Stop Losing <span className="text-amber-700 italic">$3,000–$5,000</span> Wedding Deposits to Slow Email Replies.
-                </h1>
+                {/* LEFT: Copy & CTAs (55%) */}
+                <div className="w-full md:w-[55%] text-left flex flex-col justify-center space-y-8">
+                    {/* Headline */}
+                    <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-primary max-w-2xl">
+                        Stop Losing <span className="text-accent italic">$3,000–$5,000</span> Wedding Deposits to Slow Email Replies.
+                    </h1>
 
-                {/* Subhead */}
-                <div className="z-10 max-w-2xl mx-auto space-y-2 mb-10">
-                    <p className="text-xl md:text-2xl text-stone-900 leading-snug font-medium">
-                        Venues replying within 5 minutes book 3x more tours.
-                    </p>
-                    <p className="text-sm md:text-base text-stone-500">
-                        Based on reply-time analysis across 127+ independent venues.
-                    </p>
-                    <p className="text-lg md:text-xl text-stone-800 font-semibold pt-2">
-                        Venue Engine replies in 14 seconds — automatically.
-                    </p>
-                </div>
-
-                {/* CTAs */}
-                <div className="z-10 w-full max-w-md md:max-w-none flex flex-col md:flex-row gap-4 items-center justify-center">
-                    {/* Primary */}
-                    <div className="flex flex-col items-center gap-3 w-full md:w-auto">
-                        <Link
-                            href="#calendar"
-                            className="w-full md:w-auto h-16 px-8 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-xl rounded-sm flex items-center justify-center transition-all hover:scale-[1.02]"
-                        >
-                            Book Your 15-Min Audit
-                        </Link>
-                        <span className="text-xs text-stone-400 font-medium">
-                            No sales pitch. Just data on where you're losing bookings.
-                        </span>
+                    {/* Subhead - Rhythmic Hierarchy */}
+                    <div className="space-y-1 max-w-xl">
+                        <p className="text-xl text-primary leading-snug font-normal">
+                            Venues replying within 5 minutes book 3x more tours.
+                        </p>
+                        <p className="text-sm text-muted opacity-80 font-medium">
+                            Based on reply-time analysis across 127+ independent venues.
+                        </p>
+                        <p className="text-lg text-primary font-bold pt-1">
+                            Venue Engine replies in <span className="text-accent">14 seconds</span> — automatically.
+                        </p>
                     </div>
 
-                    {/* Secondary */}
-                    <Link
-                        href="#how-it-works"
-                        className="w-full md:w-auto h-16 px-8 bg-white border border-stone-200 text-stone-900 text-lg uppercase tracking-widest hover:bg-stone-50 hover:border-stone-300 shadow-sm rounded-sm flex items-center justify-center transition-all"
-                    >
-                        See How It Works
-                    </Link>
+                    {/* CTAs - Dominance Enforced */}
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-4 w-full max-w-md md:max-w-none items-start pt-2">
+                        <div className="flex flex-col gap-2 w-full md:w-auto">
+                            <Link
+                                href="#calendar"
+                                className="w-full md:w-auto h-[3.5rem] md:h-[4rem] px-8 bg-accent text-accent-foreground text-lg uppercase tracking-widest hover:brightness-90 shadow-xl rounded-sm flex items-center justify-center transition-all hover:scale-[1.02] font-semibold"
+                            >
+                                Book Your 15-Min Venue Audit
+                            </Link>
+                            <span className="text-xs text-muted font-medium ml-1">
+                                No sales pitch. Just data on where you're losing bookings.
+                            </span>
+                        </div>
+
+                        <Link
+                            href="#how-it-works"
+                            className="w-full md:w-auto h-[3.5rem] md:h-[4rem] px-8 bg-transparent border border-primary text-primary text-lg uppercase tracking-widest hover:bg-secondary/20 rounded-sm flex items-center justify-center transition-all opacity-80 hover:opacity-100"
+                        >
+                            See How It Works
+                        </Link>
+                    </div>
+
+                    <p className="text-xs text-primary/60 font-medium pt-4 border-t border-border/50 max-w-xs">
+                        Works with Gmail, Outlook, and your existing inbox.
+                    </p>
+
+                </div>
+
+                {/* RIGHT: SMS Proof (45%) */}
+                <div className="w-full md:w-[45%] flex flex-col items-center">
+                    <div className="w-full max-w-sm mx-auto shadow-2xl rounded-3xl overflow-hidden md:transform md:scale-105">
+                        <SMSProof />
+                    </div>
+
+                    {/* Founder Credibility - Understated */}
+                    <div className="mt-6 w-full max-w-sm mx-auto text-left pl-2">
+                        <span className="text-sm text-muted font-medium opacity-80">
+                            Built by a venue systems operator.
+                        </span>
+                    </div>
                 </div>
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                 VISUAL PROOF SECTION
+                 REVENUE LOSS CALCULATOR (Financial Wake-up Call)
              ═══════════════════════════════════════════════════════════════ */}
-            <section className="w-full max-w-5xl mx-auto -mt-4 px-6 z-20 relative mb-24">
-                <SMSProof />
-
-                {/* Stats Below Proof */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-8 text-sm font-mono text-stone-500 uppercase tracking-widest bg-white/50 backdrop-blur-sm py-4 rounded-full border border-stone-100 max-w-2xl mx-auto shadow-sm">
-                    <div className="flex items-center gap-2">
-                        <span className="opacity-50">Before:</span>
-                        <span className="text-stone-400 line-through decoration-red-400/50">Avg reply 2h 17m</span>
+            <section className="w-full px-6 mb-24 z-10">
+                <div className="max-w-4xl mx-auto bg-card border border-border rounded-xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center gap-10">
+                    <div className="flex-1 space-y-6">
+                        <h3 className="font-serif text-3xl text-primary">How Much Is <span className="italic text-destructive">Slow Speed</span> Costing You?</h3>
+                        <div className="space-y-3 text-base text-muted/90 font-medium">
+                            <p>If you receive <span className="font-bold text-primary border-b-2 border-primary/10">40 inquiries</span> per month...</p>
+                            <p>And <span className="font-bold text-primary border-b-2 border-primary/10">20%</span> go elsewhere due to slow reply...</p>
+                            <p>That’s <span className="font-bold text-destructive">8 lost tours</span>.</p>
+                        </div>
                     </div>
-                    <div className="hidden md:block w-px h-4 bg-stone-300"></div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-amber-700 font-bold">After:</span>
-                        <span className="text-stone-900 font-bold bg-green-100 px-2 py-0.5 rounded-sm">Avg reply 18s</span>
+
+                    <div className="w-full h-px md:w-px md:h-32 bg-border"></div>
+
+                    <div className="flex-1 text-center md:text-right space-y-2">
+                        <div className="text-sm text-muted mb-1 uppercase tracking-widest font-bold">At $4,000 Average Deposit</div>
+                        <div className="text-5xl md:text-6xl font-serif text-primary tracking-tighter">$32,000</div>
+                        <div className="text-xs uppercase tracking-widest text-destructive font-bold">Lost Revenue / Month</div>
+                        <p className="text-sm text-primary font-bold mt-4 pt-4 border-t border-border/50">
+                            That’s what 14-second replies recover.
+                        </p>
                     </div>
                 </div>
             </section>
