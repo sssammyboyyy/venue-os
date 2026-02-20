@@ -1,82 +1,76 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-
-interface FormState {
-    errors?: {
-        venueName?: string[]
-        firstName?: string[]
-        lastName?: string[]
-        email?: string[]
-        annualWeddings?: string[]
-        painPoint?: string[]
-    }
-    message?: string | null
-}
+import Link from 'next/link'
+import { SMSProof } from '@/components/ui/sms-proof'
 
 export default function ApplyPage() {
-    const router = useRouter()
-    const [state, setState] = useState<FormState>({ message: '', errors: {} })
-    const [isSubmitting, setIsSubmitting] = useState(false)
-
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        setIsSubmitting(true)
-        setState({ message: '', errors: {} })
-
-        const formData = new FormData(e.currentTarget)
-
-        try {
-            const response = await fetch('/api/submit', {
-                method: 'POST',
-                body: formData,
-            })
-
-            const result = await response.json()
-
-            if (!response.ok) {
-                setState({
-                    errors: result.errors || {},
-                    message: result.message + (result.step ? ` [${result.step}]` : '') + (result.code ? ` (${result.code})` : ''),
-                })
-                setIsSubmitting(false)
-                return
-            }
-
-            if (result.redirect) {
-                router.push(result.redirect)
-            }
-        } catch (error) {
-            setState({
-                message: 'Network error. Please try again.',
-            })
-            setIsSubmitting(false)
-        }
-    }
-
     return (
-        <main className="min-h-screen relative flex flex-col items-center font-sans">
+        <main className="min-h-screen relative flex flex-col items-center font-sans bg-stone-50">
+            {/* CSS Noise Overlay for tactile "Cardstock" feel */}
+            <div
+                className="fixed inset-0 opacity-[0.03] pointer-events-none z-50 mix-blend-multiply"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+                }}
+            />
 
-            {/* --- HERO SECTION --- */}
-            <section className="relative flex flex-col items-center pt-24 pb-16 px-6 text-center z-10 w-full max-w-5xl">
-                <span className="mb-6 px-4 py-2 border border-stone-300 rounded-full text-xs font-semibold tracking-widest uppercase text-stone-500 bg-white/50 backdrop-blur-sm">
-                    Private Beta • Independent Venues Only
-                </span>
+            {/* ═══════════════════════════════════════════════════════════════
+                HERO SECTION
+            ═══════════════════════════════════════════════════════════════ */}
+            <section className="relative flex flex-col items-center pt-24 pb-16 px-6 text-center z-10 w-full max-w-5xl overflow-hidden">
+                {/* Badge */}
+                <div className="z-10 mb-8 px-4 py-2 border border-stone-200 rounded-full bg-white shadow-sm">
+                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-stone-400">
+                        Private Beta • Independent Venues Only
+                    </span>
+                </div>
 
-                <h1 className="font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-6 tracking-tight">
-                    Restore your <span className="italic text-amber-700 font-light">sanity.</span>
+                {/* Main Headline */}
+                <h1 className="z-10 font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-8 tracking-tight max-w-5xl">
+                    Stop Losing <span className="text-amber-700 italic">$3,000–$5,000 Deposits</span> to Slow Replies.
                 </h1>
 
-                <p className="max-w-2xl text-lg md:text-xl text-stone-600 font-light leading-relaxed">
-                    The "Anti-Ghosting" engine that manages your leads while you sleep.
-                    <br className="hidden md:block" /> No login required. No new software. Just relief.
+                {/* Subheadline */}
+                <p className="z-10 max-w-2xl text-xl text-stone-600 leading-relaxed font-sans mb-8">
+                    Venues that reply within 5 minutes book <span className="font-semibold text-stone-900">3x more tours</span> <span className="text-stone-400 text-sm">(based on data from 127+ independent venues)</span>.
+                    <br className="hidden md:block" />
+                    Venue Engine replies in <span className="font-semibold text-stone-900">14 seconds</span> — automatically.
                 </p>
+
+                {/* CTA */}
+                <div className="z-10 flex flex-col sm:flex-row gap-4 items-center">
+                    {/* Primary: Book Audit */}
+                    <a
+                        href="https://cal.com/venue-engine/audit"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="h-16 px-8 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-xl rounded-sm flex items-center justify-center transition-all hover:scale-[1.02] text-white"
+                    >
+                        Book Your 15-Min Audit
+                    </a>
+
+                    {/* Secondary: See How It Works */}
+                    <Link
+                        href="#how-it-works"
+                        className="h-16 px-8 bg-white border border-stone-200 text-stone-900 text-lg uppercase tracking-widest hover:bg-stone-50 hover:border-stone-300 shadow-sm rounded-sm flex items-center justify-center transition-all"
+                    >
+                        See How It Works
+                    </Link>
+                </div>
             </section>
 
-            {/* --- VSL CONTAINER --- */}
+            {/* ═══════════════════════════════════════════════════════════════
+                 VISUAL PROOF - SMS Interface
+             ═══════════════════════════════════════════════════════════════ */}
+            <div className="w-full max-w-5xl mx-auto -mt-4 px-6 z-20 relative mb-24">
+                <SMSProof />
+            </div>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                VSL CONTAINER - "Restoration Hardware" Style
+            ═══════════════════════════════════════════════════════════════ */}
             <section className="w-full px-6 mb-16 z-10">
-                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300">
+                <div id="how-it-works" className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300 scroll-mt-32">
                     <iframe
                         src="https://www.youtube.com/embed/MngcmTzWzeQ?rel=0&modestbranding=1"
                         title="Watch: Restore your sanity - The Anti-Ghosting Engine"
@@ -86,131 +80,102 @@ export default function ApplyPage() {
                         style={{ border: 'none' }}
                     />
                 </div>
-            </section>
-
-            {/* --- LEDGER FORM --- */}
-            <section className="w-full px-6 pb-24 z-10">
-                <div className="w-full max-w-xl mx-auto bg-white p-8 md:p-12 border border-stone-200 shadow-xl rounded-sm relative">
-                    <div className="absolute top-0 left-0 w-full h-1.5 bg-stone-900" />
-
-                    <h3 className="font-serif text-3xl md:text-4xl text-stone-800 mb-10 text-center">Request Access</h3>
-
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        {state?.message && (
-                            <div className="p-4 bg-red-50 text-red-700 text-base border border-red-200 mb-4 text-center rounded-sm">
-                                {state.message}
-                            </div>
-                        )}
-
-                        {/* First + Last Name */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="relative pt-4">
-                                <label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-stone-500">First Name</label>
-                                <input
-                                    id="firstName"
-                                    name="firstName"
-                                    autoComplete="given-name"
-                                    required
-                                    className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
-                                    placeholder="Jane"
-                                />
-                                {state?.errors?.firstName && <p className="text-sm text-red-500 mt-2">{state.errors.firstName[0]}</p>}
-                            </div>
-                            <div className="relative pt-4">
-                                <label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-stone-500">Last Name</label>
-                                <input
-                                    id="lastName"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                    required
-                                    className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
-                                    placeholder="Doe"
-                                />
-                                {state?.errors?.lastName && <p className="text-sm text-red-500 mt-2">{state.errors.lastName[0]}</p>}
-                            </div>
-                        </div>
-
-                        {/* Venue Name */}
-                        <div className="relative pt-4">
-                            <label htmlFor="venueName" className="text-xs font-bold uppercase tracking-widest text-stone-500">Venue Name</label>
-                            <input
-                                id="venueName"
-                                name="venueName"
-                                autoComplete="organization"
-                                required
-                                className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
-                                placeholder="The Barn at..."
-                            />
-                            {state?.errors?.venueName && <p className="text-sm text-red-500 mt-2">{state.errors.venueName[0]}</p>}
-                        </div>
-
-                        {/* Email */}
-                        <div className="relative pt-4">
-                            <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-stone-500">Email Address</label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
-                                required
-                                className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 placeholder:text-stone-300 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif"
-                                placeholder="owner@venue.com"
-                            />
-                            {state?.errors?.email && <p className="text-sm text-red-500 mt-2">{state.errors.email[0]}</p>}
-                        </div>
-
-                        {/* Annual Weddings */}
-                        <div className="relative pt-4">
-                            <label htmlFor="annualWeddings" className="text-xs font-bold uppercase tracking-widest text-stone-500">Annual Weddings</label>
-                            <select
-                                id="annualWeddings"
-                                name="annualWeddings"
-                                autoComplete="off"
-                                required
-                                defaultValue=""
-                                className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif appearance-none cursor-pointer"
-                            >
-                                <option value="" disabled className="text-stone-300">Select Volume...</option>
-                                <option value="0-5">0 - 5 (Hobbyist)</option>
-                                <option value="6-20">6 - 20 (Seasonal)</option>
-                                <option value="20+">20 - 50 (Professional)</option>
-                                <option value="50+">50+ (High Volume)</option>
-                            </select>
-                        </div>
-
-                        {/* Pain Point */}
-                        <div className="relative pt-4">
-                            <label htmlFor="painPoint" className="text-xs font-bold uppercase tracking-widest text-stone-500">Primary Challenge</label>
-                            <select
-                                id="painPoint"
-                                name="painPoint"
-                                autoComplete="off"
-                                required
-                                defaultValue=""
-                                className="w-full border-b-2 border-stone-200 bg-transparent py-4 text-xl md:text-2xl text-stone-900 focus:outline-none focus:border-stone-800 transition-colors rounded-none font-serif appearance-none cursor-pointer"
-                            >
-                                <option value="" disabled>Select Pain Point...</option>
-                                <option value="ghosting">Leads Ghosting Me</option>
-                                <option value="admin">Too Much Admin Work</option>
-                                <option value="quality">Poor Lead Quality</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-stone-900 text-stone-50 py-5 uppercase tracking-widest font-medium text-sm hover:bg-stone-800 transition-all active:scale-[0.99] mt-10 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                        </button>
-
-                        <p className="text-center text-sm text-stone-400 pt-4">
-                            Limited spots available for Q1 2026.
-                        </p>
-                    </form>
+                <div className="text-center mt-6 text-stone-500 italic font-serif z-10 relative">
+                    "It's like having a full-time sales manager who never sleeps."
                 </div>
             </section>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                 FEATURE COMPARISON - "Hey.com" Before/After Grid
+             ═══════════════════════════════════════════════════════════════ */}
+            <section className="py-24 bg-white border-y border-stone-100 w-full z-10">
+                <div className="max-w-6xl mx-auto px-6">
+                    <h2 className="font-serif text-4xl md:text-5xl text-stone-900 text-center mb-16">
+                        The <span className="italic font-light">difference</span> is automatic.
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        {/* The Villain (Old Way) */}
+                        <div className="opacity-60 grayscale">
+                            <h3 className="font-serif text-2xl mb-4 text-stone-400 italic">The Old Way</h3>
+                            <div className="p-8 border border-stone-200 rounded-sm bg-stone-50">
+                                <div className="text-stone-400 text-sm mb-2">📩 New Inquiry from The Knot</div>
+                                <div className="text-stone-900 font-bold text-lg mb-4">You reply 4 hours later...</div>
+                                <div className="text-red-400 font-medium">Result: They ghosted you.</div>
+                                <div className="mt-6 pt-6 border-t border-stone-200">
+                                    <div className="text-stone-400 text-sm">Average response time:</div>
+                                    <div className="text-2xl font-bold text-stone-500">4+ hours</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* The Hero (VenueEngine Way) */}
+                        <div className="relative transform md:-translate-x-4 md:scale-105 shadow-2xl rounded-sm bg-stone-50 border border-amber-900/10 p-8">
+                            <div className="absolute -top-4 -right-4 bg-amber-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-sm">
+                                Automated
+                            </div>
+                            <h3 className="font-serif text-2xl mb-4 text-stone-900">The VenueEngine Way</h3>
+                            <div className="space-y-4">
+                                <div className="flex gap-3 items-center">
+                                    <div className="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center text-xs flex-shrink-0">🤵</div>
+                                    <div className="bg-white p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl shadow-sm text-sm text-stone-600">
+                                        New Lead received at 3:00 AM.
+                                    </div>
+                                </div>
+                                <div className="flex gap-3 items-center justify-end">
+                                    <div className="bg-stone-900 text-white p-3 rounded-tl-xl rounded-bl-xl rounded-br-xl shadow-md text-sm">
+                                        Hi Sarah! Saw your inquiry. We have that date open! Want the brochure?
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-amber-700 flex items-center justify-center text-xs text-white flex-shrink-0 font-bold">VE</div>
+                                </div>
+                                <div className="text-center text-xs text-stone-400 pt-2 uppercase tracking-widest">
+                                    Response time: 14 seconds
+                                </div>
+                            </div>
+                            <div className="mt-6 pt-6 border-t border-stone-200">
+                                <div className="text-stone-500 text-sm">Result:</div>
+                                <div className="text-2xl font-bold text-amber-700">+$12,000 booked</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                 BOTTOM CTA - The Ledger
+             ═══════════════════════════════════════════════════════════════ */}
+            <section className="py-32 px-6 text-center z-10 w-full">
+                <h2 className="font-serif text-4xl md:text-6xl text-stone-900 mb-6 tracking-tight">
+                    Stop the <span className="italic text-amber-700 font-light">bleeding.</span> Start the booking.
+                </h2>
+                <p className="max-w-xl mx-auto text-lg text-stone-600 mb-10">
+                    We are currently in private beta. Book a quick audit to see if your venue qualifies for the automation engine.
+                </p>
+                <a
+                    href="https://cal.com/venue-engine/audit"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-16 px-12 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-2xl rounded-sm items-center justify-center transition-colors text-white"
+                >
+                    Book 15-Min Audit
+                </a>
+                <p className="mt-6 text-sm text-stone-400">
+                    No hard selling. Just a look at your current response benchmarks.
+                </p>
+            </section>
+
+            {/* ═══════════════════════════════════════════════════════════════
+                 FOOTER
+             ═══════════════════════════════════════════════════════════════ */}
+            <footer className="py-12 px-6 border-t border-stone-200 bg-white w-full z-10">
+                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div className="font-serif text-xl text-stone-900">VenueEngine</div>
+                    <div className="text-sm text-stone-400">
+                        © 2026 VenueEngine. The Anti-Ghosting Patch.
+                    </div>
+                </div>
+            </footer>
+
         </main>
     )
 }
