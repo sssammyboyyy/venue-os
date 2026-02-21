@@ -122,15 +122,11 @@ export default function LandingPage() {
             {/* ═══════════════════════════════════════════════════════════════
                 VIDEO SECTION
             ═══════════════════════════════════════════════════════════════ */}
-            <section id="how-it-works" className="w-full px-6 mb-24 z-10 scroll-mt-32">
-                <div className="max-w-4xl mx-auto text-center mb-6">
-                    <h3 className="font-serif text-2xl text-stone-900">How It Works (90 Seconds)</h3>
-                </div>
-
-                <div className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-sm overflow-hidden shadow-2xl border border-stone-300">
+            <section className="w-full px-6 mb-24 z-10">
+                <div id="how-it-works" className="relative w-full max-w-4xl mx-auto aspect-video bg-secondary rounded-lg overflow-hidden shadow-2xl border border-border scroll-mt-32">
                     <iframe
-                        src="https://www.youtube.com/embed/MngcmTzWzeQ?rel=0&modestbranding=1"
-                        title="Watch: Venue Engine Demo"
+                        src="https://www.youtube.com/embed/SVRNL4R95X8?rel=0&modestbranding=1"
+                        title="Watch: Restore your sanity - Venue Engine"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="absolute inset-0 w-full h-full"

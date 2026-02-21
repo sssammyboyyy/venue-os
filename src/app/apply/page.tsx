@@ -79,7 +79,7 @@ export default function ApplyPage() {
             <section className="w-full px-6 mb-16 z-10">
                 <div id="how-it-works" className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300 scroll-mt-32">
                     <iframe
-                        src="https://www.youtube.com/embed/MngcmTzWzeQ?rel=0&modestbranding=1"
+                        src="https://www.youtube.com/embed/SVRNL4R95X8?rel=0&modestbranding=1"
                         title="Watch: Restore your sanity - The Anti-Ghosting Engine"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
