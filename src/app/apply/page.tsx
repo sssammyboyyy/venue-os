@@ -19,24 +19,23 @@ export default function ApplyPage() {
                 HERO SECTION
             ═══════════════════════════════════════════════════════════════ */}
             <section className="relative flex flex-col items-center pt-24 pb-16 px-6 text-center z-10 w-full max-w-5xl overflow-hidden">
-                {/* Badge */}
-                <div className="z-10 mb-8 px-4 py-2 border border-stone-200 rounded-full bg-white shadow-sm">
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-stone-400">
-                        Private Beta • Independent Venues Only
-                    </span>
-                </div>
-
                 {/* Main Headline */}
                 <h1 className="z-10 font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-8 tracking-tight max-w-5xl">
                     Stop Losing <span className="text-amber-700 italic">$3,000–$5,000 Deposits</span> to Slow Replies.
                 </h1>
 
-                {/* Subheadline */}
-                <p className="z-10 max-w-2xl text-xl text-stone-600 leading-relaxed font-sans mb-8">
-                    Venues that reply within 5 minutes book <span className="font-semibold text-stone-900">3x more tours</span> <span className="text-stone-400 text-sm">(based on data from 127+ independent venues)</span>.
-                    <br className="hidden md:block" />
-                    Venue Engine replies in <span className="font-semibold text-stone-900">14 seconds</span> — automatically.
-                </p>
+                {/* Subheadline Structural Fix */}
+                <div className="z-10 max-w-2xl text-center mb-8 font-sans space-y-2">
+                    <p className="text-xl text-stone-600 leading-relaxed">
+                        Venues that reply within 5 minutes book <span className="font-semibold text-stone-900">3x more tours</span>.
+                    </p>
+                    <p className="text-stone-400 text-[15px]">
+                        (based on data from 127+ independent venues)
+                    </p>
+                    <p className="text-xl text-stone-600 leading-relaxed pt-3">
+                        Venue Engine replies in <span className="font-semibold text-stone-900">14 seconds</span> — automatically.
+                    </p>
+                </div>
 
                 {/* CTA */}
                 <div className="z-10 flex flex-col sm:flex-row gap-4 items-center">
@@ -152,7 +151,7 @@ export default function ApplyPage() {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="font-serif text-xl text-stone-900">VenueEngine</div>
                     <div className="text-sm text-stone-400">
-                        © 2026 VenueEngine. The Anti-Ghosting Patch.
+                        © 2026 Venue Engine. Recovering Deposits Through Instant Response.
                     </div>
                 </div>
             </footer>

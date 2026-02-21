@@ -151,7 +151,7 @@ export default function LandingPage() {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="font-serif text-xl text-stone-900">VenueEngine</div>
                     <div className="text-sm text-stone-400">
-                        © 2026 VenueEngine. The Anti-Ghosting Patch.
+                        © 2026 Venue Engine. Recovering Deposits Through Instant Response.
                     </div>
                 </div>
             </footer>
