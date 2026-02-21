@@ -32,20 +32,20 @@ export default function LandingPage() {
                 {/* LEFT: Copy & CTAs (55%) */}
                 <div className="w-full md:w-[55%] text-left flex flex-col justify-center space-y-8">
                     {/* Headline */}
-                    <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-primary max-w-2xl">
-                        Stop Losing <span className="text-accent italic">$3,000–$5,000</span> Wedding Deposits to Slow Email Replies.
+                    <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-[#111111] max-w-2xl">
+                        Stop Losing <span className="text-[#B87333] italic">$3,000–$5,000</span> Wedding Deposits to Slow Email Replies.
                     </h1>
 
                     {/* Subhead - Rhythmic Hierarchy */}
                     <div className="space-y-1 max-w-xl">
-                        <p className="text-xl text-primary leading-snug font-normal">
-                            Venues replying within 5 minutes book 3x more tours.
+                        <p className="text-xl text-[#111111] leading-snug font-normal">
+                            Venues that reply within 5 minutes book 3x more tours.
                         </p>
-                        <p className="text-sm text-muted opacity-80 font-medium">
-                            Based on reply-time analysis across 127+ independent venues.
-                        </p>
-                        <p className="text-lg text-primary font-bold pt-1">
-                            Venue Engine replies in <span className="text-accent">14 seconds</span> — automatically.
+                        <div className="max-w-xl mx-auto mt-2 text-center text-[#6E7074] text-sm font-medium">
+                            Based on reply-time analysis from 127+ independent venues.
+                        </div>
+                        <p className="text-lg text-[#111111] font-semibold pt-4">
+                            Venue Engine replies in 14 seconds — automatically.
                         </p>
                     </div>
 

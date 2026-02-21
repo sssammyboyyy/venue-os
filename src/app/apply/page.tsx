@@ -1,187 +1,189 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { SMSProof } from '@/components/ui/sms-proof'
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react"
+import { useEffect } from "react"
 
 export default function ApplyPage() {
+    const [step, setStep] = useState<'form' | 'calendar' | 'disqualified'>('form')
+    const [volume, setVolume] = useState('')
+    const [bottleneck, setBottleneck] = useState('')
+
+    // Safety constraint: Continue button is strictly disabled until both are chosen
+    const canContinue = volume !== '' && bottleneck !== ''
 
     useEffect(() => {
-        (async function () {
-            const cal = await getCalApi({});
-            cal("ui", { "styles": { "branding": { "brandColor": "#000000" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-        })();
-    }, []);
+        if (step === 'calendar') {
+            (async function () {
+                const cal = await getCalApi({});
+                cal("ui", { "styles": { "branding": { "brandColor": "#000000" } }, "hideEventTypeDetails": false, "layout": "month_view" });
+            })();
+        }
+    }, [step]);
+
+    const handleContinue = () => {
+        if (!canContinue) return;
+
+        // Qualification Logic (Time Protection Mode)
+        if (volume === '0-5' || volume === '6-20') {
+            setStep('disqualified');
+        } else {
+            setStep('calendar');
+        }
+    }
+
     return (
-        <main className="min-h-screen relative flex flex-col items-center font-sans bg-stone-50">
-            {/* CSS Noise Overlay for tactile "Cardstock" feel */}
-            <div
-                className="fixed inset-0 opacity-[0.03] pointer-events-none z-50 mix-blend-multiply"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-                }}
-            />
+        <main className="min-h-screen relative flex flex-col font-sans bg-[#F5F3EF] items-center justify-center p-6">
+            {/* Minimal Header */}
+            <header className="absolute top-0 left-0 w-full p-6 z-50">
+                <Link href="/" className="font-serif text-xl text-[#111111] font-bold tracking-tight hover:opacity-80 transition-opacity">
+                    VenueEngine
+                </Link>
+            </header>
 
             {/* ═══════════════════════════════════════════════════════════════
-                HERO SECTION
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="relative flex flex-col items-center pt-24 pb-16 px-6 text-center z-10 w-full max-w-5xl overflow-hidden">
-                {/* Badge */}
-                <div className="z-10 mb-8 px-4 py-2 border border-stone-200 rounded-full bg-white shadow-sm">
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-stone-400">
-                        Private Beta • Independent Venues Only
-                    </span>
-                </div>
-
-                {/* Main Headline */}
-                <h1 className="z-10 font-serif text-5xl md:text-7xl text-stone-900 leading-[1.1] mb-8 tracking-tight max-w-5xl">
-                    Stop Losing <span className="text-amber-700 italic">$3,000–$5,000 Deposits</span> to Slow Replies.
-                </h1>
-
-                {/* Subheadline */}
-                <p className="z-10 max-w-2xl text-xl text-stone-600 leading-relaxed font-sans mb-8">
-                    Venues that reply within 5 minutes book <span className="font-semibold text-stone-900">3x more tours</span> <span className="text-stone-400 text-sm">(based on data from 127+ independent venues)</span>.
-                    <br className="hidden md:block" />
-                    Venue Engine replies in <span className="font-semibold text-stone-900">14 seconds</span> — automatically.
-                </p>
-
-                {/* CTA */}
-                <div className="z-10 flex flex-col sm:flex-row gap-4 items-center">
-                    {/* Primary: Scroll to Calendar */}
-                    <Link
-                        href="#calendar"
-                        className="h-16 px-8 bg-stone-900 text-stone-50 text-lg uppercase tracking-widest hover:bg-stone-800 shadow-xl rounded-sm flex items-center justify-center transition-all hover:scale-[1.02] text-white"
-                    >
-                        Book Your 15-Min Audit
-                    </Link>
-
-                    {/* Secondary: See How It Works */}
-                    <Link
-                        href="#how-it-works"
-                        className="h-16 px-8 bg-white border border-stone-200 text-stone-900 text-lg uppercase tracking-widest hover:bg-stone-50 hover:border-stone-300 shadow-sm rounded-sm flex items-center justify-center transition-all"
-                    >
-                        See How It Works
-                    </Link>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                 VISUAL PROOF - SMS Interface
+                 STEP 1: MICRO-APPLY (Qualification State)
              ═══════════════════════════════════════════════════════════════ */}
-            <div className="w-full max-w-5xl mx-auto -mt-4 px-6 z-20 relative mb-24">
-                <SMSProof />
-            </div>
+            {step === 'form' && (
+                <div className="w-full max-w-lg bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-[#E5E2DC] z-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="text-center mb-10">
+                        <h1 className="font-serif text-3xl md:text-4xl text-[#111111] mb-3 leading-tight">
+                            See If Instant Replies Will Increase Your Bookings
+                        </h1>
+                        <p className="text-[#6E7074] text-base">
+                            Let's see if our response architecture fits your current inquiry volume.
+                        </p>
+                    </div>
+
+                    <div className="space-y-6">
+                        {/* Question 1 */}
+                        <div className="space-y-2 text-left">
+                            <label htmlFor="volume" className="block text-sm font-semibold text-[#111111] tracking-wide">
+                                How many weddings do you host annually?
+                            </label>
+                            <select
+                                id="volume"
+                                aria-label="Annual wedding volume"
+                                value={volume}
+                                onChange={(e) => setVolume(e.target.value)}
+                                className="w-full p-4 bg-[#F5F3EF] border border-[#E5E2DC] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#111111] transition-all text-[#111111]"
+                            >
+                                <option value="" disabled>Select your volume...</option>
+                                <option value="0-5">0–5</option>
+                                <option value="6-20">6–20</option>
+                                <option value="20-50">20–50</option>
+                                <option value="50+">50+</option>
+                            </select>
+                        </div>
+
+                        {/* Question 2 */}
+                        <div className="space-y-2 text-left">
+                            <label htmlFor="bottleneck" className="block text-sm font-semibold text-[#111111] tracking-wide">
+                                What’s your biggest inquiry bottleneck?
+                            </label>
+                            <select
+                                id="bottleneck"
+                                aria-label="Biggest inquiry bottleneck"
+                                value={bottleneck}
+                                onChange={(e) => setBottleneck(e.target.value)}
+                                className="w-full p-4 bg-[#F5F3EF] border border-[#E5E2DC] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#111111] transition-all text-[#111111]"
+                            >
+                                <option value="" disabled>Select your biggest issue...</option>
+                                <option value="Slow replies">Slow replies</option>
+                                <option value="Too many ghosted leads">Too many ghosted leads</option>
+                                <option value="Leads not booking tours">Leads not booking tours</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        {/* Primary CTA (Disabled State Managed) */}
+                        <div className="pt-4">
+                            <button
+                                onClick={handleContinue}
+                                disabled={!canContinue}
+                                className={`w-full min-h-[52px] rounded-lg text-lg font-semibold tracking-wide transition-all duration-300 ${canContinue
+                                    ? 'bg-[#B87333] text-white hover:brightness-90 hover:scale-[1.01] shadow-lg cursor-pointer'
+                                    : 'bg-[#E5E2DC] text-[#6E7074] cursor-not-allowed opacity-70'
+                                    }`}
+                            >
+                                Continue &rarr; Check Availability
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                VSL CONTAINER - "Restoration Hardware" Style
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="w-full px-6 mb-16 z-10">
-                <div id="how-it-works" className="relative w-full max-w-4xl mx-auto aspect-video bg-stone-100 rounded-lg overflow-hidden shadow-2xl border border-stone-300 scroll-mt-32">
-                    <iframe
-                        src="https://www.youtube.com/embed/SVRNL4R95X8?rel=0&modestbranding=1"
-                        title="Watch: Restore your sanity - The Anti-Ghosting Engine"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="absolute inset-0 w-full h-full"
-                        style={{ border: 'none' }}
-                    />
-                </div>
-                <div className="text-center mt-6 text-stone-500 italic font-serif z-10 relative">
-                    "It's like having a full-time sales manager who never sleeps."
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                 FEATURE COMPARISON - "Hey.com" Before/After Grid
+                 DISQUALIFICATION STATE (Safety/Time Protection)
              ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-white border-y border-stone-100 w-full z-10">
-                <div className="max-w-6xl mx-auto px-6">
-                    <h2 className="font-serif text-4xl md:text-5xl text-stone-900 text-center mb-16">
-                        The <span className="italic font-light">difference</span> is automatic.
+            {step === 'disqualified' && (
+                <div className="w-full max-w-lg text-center p-8 z-10 animate-in fade-in zoom-in-95 duration-500">
+                    <h2 className="font-serif text-3xl md:text-4xl text-[#111111] mb-4">
+                        We’re right-sized for venues hosting 20+ weddings annually.
                     </h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                        {/* The Villain (Old Way) */}
-                        <div className="opacity-60 grayscale">
-                            <h3 className="font-serif text-2xl mb-4 text-stone-400 italic">The Old Way</h3>
-                            <div className="p-8 border border-stone-200 rounded-sm bg-stone-50">
-                                <div className="text-stone-400 text-sm mb-2">📩 New Inquiry from The Knot</div>
-                                <div className="text-stone-900 font-bold text-lg mb-4">You reply 4 hours later...</div>
-                                <div className="text-red-400 font-medium">Result: They ghosted you.</div>
-                                <div className="mt-6 pt-6 border-t border-stone-200">
-                                    <div className="text-stone-400 text-sm">Average response time:</div>
-                                    <div className="text-2xl font-bold text-stone-500">4+ hours</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* The Hero (VenueEngine Way) */}
-                        <div className="relative transform md:-translate-x-4 md:scale-105 shadow-2xl rounded-sm bg-stone-50 border border-amber-900/10 p-8">
-                            <div className="absolute -top-4 -right-4 bg-amber-700 text-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-sm">
-                                Automated
-                            </div>
-                            <h3 className="font-serif text-2xl mb-4 text-stone-900">The VenueEngine Way</h3>
-                            <div className="space-y-4">
-                                <div className="flex gap-3 items-center">
-                                    <div className="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center text-xs flex-shrink-0">🤵</div>
-                                    <div className="bg-white p-3 rounded-tr-xl rounded-bl-xl rounded-br-xl shadow-sm text-sm text-stone-600">
-                                        New Lead received at 3:00 AM.
-                                    </div>
-                                </div>
-                                <div className="flex gap-3 items-center justify-end">
-                                    <div className="bg-stone-900 text-white p-3 rounded-tl-xl rounded-bl-xl rounded-br-xl shadow-md text-sm">
-                                        Hi Sarah! Saw your inquiry. We have that date open! Want the brochure?
-                                    </div>
-                                    <div className="w-8 h-8 rounded-full bg-amber-700 flex items-center justify-center text-xs text-white flex-shrink-0 font-bold">VE</div>
-                                </div>
-                                <div className="text-center text-xs text-stone-400 pt-2 uppercase tracking-widest">
-                                    Response time: 14 seconds
-                                </div>
-                            </div>
-                            <div className="mt-6 pt-6 border-t border-stone-200">
-                                <div className="text-stone-500 text-sm">Result:</div>
-                                <div className="text-2xl font-bold text-amber-700">+$12,000 booked</div>
-                            </div>
-                        </div>
-                    </div>
+                    <p className="text-lg text-[#6E7074] leading-relaxed mb-8">
+                        As you scale and your inquiry pool grows, instant reply systems become significantly more impactful to your bottom line. Feel free to revisit when your volume increases.
+                    </p>
+                    <button
+                        onClick={() => { setStep('form'); setVolume(''); setBottleneck(''); }}
+                        className="text-[#B87333] hover:underline font-medium"
+                    >
+                        ← Start over
+                    </button>
                 </div>
-            </section>
+            )}
 
             {/* ═══════════════════════════════════════════════════════════════
-                 BOTTOM CTA - The Calendar Embed
+                 STEP 2: CONDITIONAL CALENDAR (Commitment State)
              ═══════════════════════════════════════════════════════════════ */}
-            <section id="calendar" className="py-24 px-6 text-center z-10 w-full bg-stone-50">
-                <h2 className="font-serif text-3xl md:text-5xl text-stone-900 mb-12 tracking-tight">
-                    Book your <span className="italic text-amber-700 font-light">Audit</span> below.
-                </h2>
+            {step === 'calendar' && (
+                <div className="w-full max-w-4xl mx-auto flex flex-col pt-16 md:pt-24 pb-20 z-10 overflow-x-hidden animate-in fade-in duration-700">
+                    {/* State Reset Control */}
+                    <div className="w-full mb-6">
+                        <button
+                            onClick={() => setStep('form')}
+                            className="text-[#6E7074] hover:text-[#111111] text-sm font-semibold transition-colors flex items-center gap-1"
+                        >
+                            &larr; Back
+                        </button>
+                    </div>
 
-                <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden border border-stone-200">
-                    <Cal
-                        namespace="audit"
-                        calLink="venue-engine/audit"
-                        style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                        config={{ "layout": "month_view" }}
-                    />
-                </div>
+                    <div className="text-center mb-8">
+                        <p className="text-sm md:text-base text-[#B87333] uppercase tracking-widest font-bold mb-3">
+                            Based on your volume, instant replies could materially increase booked tours.
+                        </p>
+                        <h2 className="font-serif text-3xl md:text-4xl text-[#111111] mb-2">
+                            Choose a time below.
+                        </h2>
+                        <p className="text-[#6E7074]">
+                            You’ll leave knowing exactly where revenue is leaking.
+                        </p>
+                    </div>
 
-                <p className="mt-8 text-sm text-stone-400">
-                    No hard selling. Just a look at your current response benchmarks.
-                </p>
-            </section>
+                    {/* Calendar Embed Safety Constraint */}
+                    <div className="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-[#E5E2DC] h-auto sm:min-w-[360px]">
+                        <Cal
+                            namespace="audit"
+                            calLink="venue-engine/audit"
+                            style={{ width: "100%", overflow: "scroll" }}
+                            config={{ "layout": "month_view" }}
+                        />
+                    </div>
 
-            {/* ═══════════════════════════════════════════════════════════════
-                 FOOTER
-             ═══════════════════════════════════════════════════════════════ */}
-            <footer className="py-12 px-6 border-t border-stone-200 bg-white w-full z-10">
-                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="font-serif text-xl text-stone-900">VenueEngine</div>
-                    <div className="text-sm text-stone-400">
-                        © 2026 VenueEngine. The Anti-Ghosting Patch.
+                    {/* Revenue Contrast (Compact) */}
+                    <div className="max-w-xl mx-auto text-center space-y-1 mt-12 pt-8 border-t border-[#E5E2DC]">
+                        <p className="text-sm text-[#111111]">* If you receive 40 inquiries/month</p>
+                        <p className="text-sm text-[#111111]">And 20% go elsewhere due to slow reply</p>
+                        <p className="text-sm font-semibold text-[#111111]">That’s 8 lost tours.</p>
+                        <p className="text-sm text-[#111111] mt-2 block">At $4,000 average deposit…</p>
+                        <p className="text-base font-bold text-[#111111]">That’s $32,000 in monthly exposure.</p>
+                        <p className="text-sm font-semibold text-[#B87333] mt-3">
+                            14-second replies eliminate that delay.
+                        </p>
                     </div>
                 </div>
-            </footer>
-
+            )}
         </main>
     )
 }
