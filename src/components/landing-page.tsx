@@ -2,17 +2,9 @@
 
 import Link from 'next/link'
 import { SMSProof } from '@/components/ui/sms-proof'
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import { MicroApplyFunnel } from '@/components/micro-apply-funnel'
 
 export default function LandingPage() {
-
-    useEffect(() => {
-        (async function () {
-            const cal = await getCalApi({});
-            cal("ui", { "styles": { "branding": { "brandColor": "#000000" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-        })();
-    }, []);
 
     return (
         <main className="min-h-screen bg-stone-50 relative font-sans text-stone-900">
@@ -148,23 +140,9 @@ export default function LandingPage() {
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                 CALENDAR SECTION
+                 CALENDAR SECTION (Micro-Commitment Funnel)
              ═══════════════════════════════════════════════════════════════ */}
-            <section id="calendar" className="py-24 px-6 text-center z-10 w-full bg-white border-t border-stone-100">
-                <h2 className="font-serif text-3xl md:text-5xl text-stone-900 mb-4 tracking-tight">
-                    See exactly how many tours you're losing to slow replies.
-                </h2>
-                <p className="text-stone-500 mb-12">No sales pitch. Just data.</p>
-
-                <div className="w-full max-w-4xl mx-auto bg-stone-50 rounded-xl shadow-inner overflow-hidden border border-stone-200 min-h-[600px]">
-                    <Cal
-                        namespace="audit"
-                        calLink="venue-engine/audit"
-                        style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                        config={{ "layout": "month_view" }}
-                    />
-                </div>
-            </section>
+            <MicroApplyFunnel />
 
             {/* ═══════════════════════════════════════════════════════════════
                 FOOTER

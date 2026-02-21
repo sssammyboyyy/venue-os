@@ -2,17 +2,9 @@
 
 import Link from 'next/link'
 import { SMSProof } from '@/components/ui/sms-proof'
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+import { MicroApplyFunnel } from '@/components/micro-apply-funnel'
 
 export default function ApplyPage() {
-
-    useEffect(() => {
-        (async function () {
-            const cal = await getCalApi({});
-            cal("ui", { "styles": { "branding": { "brandColor": "#000000" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-        })();
-    }, []);
     return (
         <main className="min-h-screen relative flex flex-col items-center font-sans bg-stone-50">
             {/* CSS Noise Overlay for tactile "Cardstock" feel */}
@@ -149,26 +141,9 @@ export default function ApplyPage() {
             </section>
 
             {/* ═══════════════════════════════════════════════════════════════
-                 BOTTOM CTA - The Calendar Embed
+                 BOTTOM CTA - The Calendar Embed (Micro-Commitment Funnel)
              ═══════════════════════════════════════════════════════════════ */}
-            <section id="calendar" className="py-24 px-6 text-center z-10 w-full bg-stone-50">
-                <h2 className="font-serif text-3xl md:text-5xl text-stone-900 mb-12 tracking-tight">
-                    Book your <span className="italic text-amber-700 font-light">Audit</span> below.
-                </h2>
-
-                <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden border border-stone-200">
-                    <Cal
-                        namespace="audit"
-                        calLink="venue-engine/audit"
-                        style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                        config={{ "layout": "month_view" }}
-                    />
-                </div>
-
-                <p className="mt-8 text-sm text-stone-400">
-                    No hard selling. Just a look at your current response benchmarks.
-                </p>
-            </section>
+            <MicroApplyFunnel />
 
             {/* ═══════════════════════════════════════════════════════════════
                  FOOTER
